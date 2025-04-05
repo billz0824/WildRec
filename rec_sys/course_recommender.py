@@ -214,6 +214,9 @@ class CourseRecommender:
                 return False
             if "max" in filter_value and course_value > filter_value["max"]:
                 return False
+            # Contains filter for string values
+            if "contains" in filter_value and isinstance(course_value, str):
+                return filter_value["contains"] in course_value
             return True
         elif isinstance(filter_value, list):
             # List filters for multiple options, e.g., ["CS", "Math"]
