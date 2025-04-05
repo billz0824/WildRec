@@ -182,3 +182,5 @@ info.py
 html_reports/
 parsed_base_reports
 parsed_reports/
+text_reports/
+numerical_reports/
