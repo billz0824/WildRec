@@ -21,19 +21,19 @@ genai.configure(api_key=CFG.GENAI_API_KEY)
 
 def gemini_sentiment_analysis(comment, aspect="overall", delay=5):
     prompt = f"""
-    You are a school administrator. Analyze the a class of students' comments from a course evaluation and assess their satisfaction with how {aspect} the course is.
+        You are a school administrator. Analyze the a class of students' comments from a course evaluation and assess their opinion on how {aspect} the course is.
 
-    A score of:
-    5 = Very Positive
-    4 = Positive
-    3 = Neutral
-    2 = Negative
-    1 = Very Negative
+        A score of:
+        5 = Very {aspect}
+        4 = Relatively {aspect}
+        3 = Neutral
+        2 = Relative not {aspect}
+        1 = Very not {aspect}
 
-    Only return the number score (1 to 5), nothing else.
+        Only return the number score (1 to 5), nothing else.
 
-    Comment: "{comment}"
-    """
+        Comment: "{comment}"
+        """
 
     try:
         model = genai.GenerativeModel('gemini-1.5-flash')
@@ -100,12 +100,12 @@ def compute_course_metrics(report):
     practicality_keywords = ["real world", "useful", "practical", "healthcare", "insurance", "deductibles"]
 
     # Compute ratings (CAN BE CHANGED!!!)
-    liked_by_students = round(0.5 * normalize(course) + 0.5 * gemini_sentiment_analysis(comments, "enjoyable"), 2)
-    difficulty = round(0.3 * (time_spent / 20 * 5) + 0.4 * normalize(challenging) + 0.3 * gemini_sentiment_analysis(comments, "challenging"), 2)
-    rewarding_score = round(0.4 * normalize(rewarding) + 0.2 * delta_interest + 0.4 * gemini_sentiment_analysis(comments, "rewarding"), 2)
-    collaborative = round(0.3 * keyword_score(collaborative_keywords) + 0.7 * gemini_sentiment_analysis(comments, "collaborative"), 2)
-    practicality_score = round(0.3 * keyword_score(practicality_keywords) + 0.7 * gemini_sentiment_analysis(comments, "useful"), 2)
-    instruction_quality = round(0.6 * normalize(instruction) + 0.2 * delta_interest + 0.2 * gemini_sentiment_analysis(comments, "well taught"), 2)
+    liked_by_students = round(0.5 * normalize(course) + 0.5 * gemini_sentiment_analysis(comments, "Enjoyable"), 2)
+    difficulty = round(0.3 * (time_spent / 20 * 5) + 0.4 * normalize(challenging) + 0.3 * gemini_sentiment_analysis(comments, "Challenging"), 2)
+    rewarding_score = round(0.4 * normalize(rewarding) + 0.2 * delta_interest + 0.4 * gemini_sentiment_analysis(comments, "Rewarding"), 2)
+    collaborative = round(0.3 * keyword_score(collaborative_keywords) + 0.7 * gemini_sentiment_analysis(comments, "Collaborative"), 2)
+    practicality_score = round(0.3 * keyword_score(practicality_keywords) + 0.7 * gemini_sentiment_analysis(comments, "Useful"), 2)
+    instruction_quality = round(0.6 * normalize(instruction) + 0.2 * delta_interest + 0.2 * gemini_sentiment_analysis(comments, "Well Taught"), 2)
 
     slogan = one_sentece_slogan(comments)
 
@@ -113,13 +113,13 @@ def compute_course_metrics(report):
         "course_name": report["course_name"],
         "professor": report["professor"],
         "term": report["term"],
-        "Liked by Students": liked_by_students,
-        "Difficulty": difficulty,
-        "Practicality": practicality_score,
-        "Collaborative": collaborative,
-        "Rewarding": rewarding_score,
-        "Instruction Quality": instruction_quality,
-        "Slogan" : slogan
+        "liked": liked_by_students,
+        "difficulty": difficulty,
+        "practicality": practicality_score,
+        "collaborative": collaborative,
+        "rewarding": rewarding_score,
+        "instruction": instruction_quality,
+        "slogan" : slogan
     }
 
 def run():

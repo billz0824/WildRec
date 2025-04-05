@@ -26,34 +26,32 @@ def gemini_call(prompt, delay=3):
     except Exception as e:
         return f"Gemini Error: {e}"
 
-def data_processing(path):
-    with open(path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
+def data_processing(report):
 
     def summarize_question(question, score):
         return f"On a scale of 1-6 (1 is worst, 6 is best), the students gave an average rating of {score} for {question}.\n"
 
     # Summarize quantitative responses
     question_summary = ""
-    for entry in data["quantitative_raw"]:
+    for entry in report["quantitative_raw"]:
         question_summary += summarize_question(entry["question"], entry["data"])
 
     # Create the full context for Gemini
     data_text = (
-        f"This is the anonymous report of {data['responded']} students "
-        f"on the course {data['course_name']} taught by Professor {data['professor']}.\n\n"
+        f"This is the anonymous report of {report['responded']} students "
+        f"on the course {report['course_name']} taught by Professor {report['professor']}.\n\n"
         f"{question_summary}\n"
         f"The students also left the following comments:\n"
     )
 
-    for comment in data["student_comments"]:
+    for comment in report["student_comments"]:
         data_text += f"- {comment}\n"
 
-    return data, data_text
+    return report, data_text
 
 
-def generate_content_summary(path):
-    data, summary = data_processing(path)
+def generate_content_summary(report):
+    data, summary = data_processing(report)
 
     prompt = f"""
         You are given a course name Please produce the following qualitative summary:
@@ -71,8 +69,8 @@ def generate_content_summary(path):
     response = gemini_call(prompt)
     return response
 
-def generate_experience_summary(path):
-    data, summary = data_processing(path)
+def generate_experience_summary(report):
+    data, summary = data_processing(report)
 
     prompt = f"""
         You are given a course evaluation report. Please produce the following qualitative summary:
@@ -105,8 +103,8 @@ def run():
         with open(file_path, 'r', encoding='utf-8') as f:
             report = json.load(f)
 
-        content_summary = generate_content_summary(file_path)
-        experience_summary = generate_experience_summary(file_path)
+        content_summary = generate_content_summary(report)
+        experience_summary = generate_experience_summary(report)
 
         output_data = {
             "course_name": report['course_name'],
