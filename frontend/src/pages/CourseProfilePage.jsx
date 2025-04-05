@@ -1,78 +1,192 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Box, Typography, Avatar, Grid, Button } from '@mui/material';
+import { FaGraduationCap, FaClock, FaMapMarkerAlt } from 'react-icons/fa';
 
 const courseMock = {
   id: 'cs349',
-  name: 'CS349 Machine Learning',
-  instructor: 'Zach Wood-Doughty',
+  number: 'CS349',
+  name: 'Machine Learning',
+  professor: 'Zach Wood-Doughty',
   avatar: '/cs349.png',
+  website: 'coursewikis.com',
+  location: 'Tech L361',
+  schedule: 'TTH 2:00-3:20',
   description: 'Intro to machine learning, covering supervised learning, decision trees, neural networks and more.',
   posts: [
     {
       id: 1,
-      image: 'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d',
-      profileImage: '/cs349.png',
-      caption: 'Loved this project!',
+      image: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4',
+      caption: 'Deep learning project presentation day! 🧠',
       timestamp: '2 hours ago',
-      courseId: 'cs349',
     },
     {
       id: 2,
-      image: 'https://images.unsplash.com/photo-1481277542470-605612bd2d61',
-      profileImage: '/cs349.png',
-      caption: 'Cool final demo!',
+      image: 'https://images.unsplash.com/photo-1509228627152-72ae9ae6848d',
+      caption: 'Neural networks in action 🚀',
       timestamp: 'Yesterday',
-      courseId: 'cs349',
+    },
+    {
+      id: 3,
+      image: 'https://images.unsplash.com/photo-1527474305487-b87b222841cc',
+      caption: 'Group project collaboration',
+      timestamp: '3 days ago',
+    },
+    {
+      id: 4,
+      image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb',
+      caption: 'Coding session for ML algorithms',
+      timestamp: '1 week ago',
+    },
+    {
+      id: 5,
+      image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3',
+      caption: 'Data visualization workshop',
+      timestamp: '2 weeks ago',
+    },
+    {
+      id: 6,
+      image: 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3',
+      caption: 'Learning about decision trees',
+      timestamp: '3 weeks ago',
     }
   ]
 };
 
 const CourseProfilePage = () => {
   const { id } = useParams();
-  const [posts, setPosts] = useState(courseMock.posts);
-
-  const handleNewPost = () => {
-    const newPost = {
-      id: Date.now(),
-      image: 'https://images.unsplash.com/photo-1581092334440-c9e1a6ccc591',
-      caption: 'Just posted something new!',
-      timestamp: 'Just now',
-      profileImage: courseMock.avatar,
-      courseId: id
-    };
-    setPosts([newPost, ...posts]);
-  };
+  const [posts] = useState(courseMock.posts);
 
   return (
-    <div className="bg-black min-h-screen px-6 py-10 text-white">
-      {/* Profile Header */}
-      <div className="flex items-center gap-6 mb-10">
-        <img src={courseMock.avatar} alt="avatar" className="w-20 h-20 rounded-full" />
-        <div>
-          <h1 className="text-2xl font-bold">{courseMock.name}</h1>
-          <p className="text-sm text-gray-400">{courseMock.instructor}</p>
-          <p className="text-sm mt-2">{courseMock.description}</p>
-        </div>
-        <button
-          onClick={handleNewPost}
-          className="ml-auto px-4 py-2 bg-purple-600 rounded hover:bg-purple-700"
-        >
-          + New Post
-        </button>
-      </div>
-
-      {/* Post Grid */}
-      <div className="grid grid-cols-3 gap-4">
-        {posts.map((post) => (
-          <img
-            key={post.id}
-            src={post.image}
-            alt="course post"
-            className="w-full h-56 object-cover rounded-md"
+    <Box sx={{ 
+      ml: '240px', 
+      height: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      bgcolor: '#0f0f0f',
+      color: 'white',
+      overflow: 'hidden',
+      position: 'fixed',
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0
+    }}>
+      {/* Fixed Header Section */}
+      <Box sx={{ 
+        p: 4,
+        bgcolor: '#0f0f0f',
+        borderBottom: '1px solid #222'
+      }}>
+        {/* Profile Header */}
+        <Box sx={{ display: 'flex', gap: 4, mb: 4 }}>
+          {/* Avatar */}
+          <Avatar 
+            src={courseMock.avatar} 
+            sx={{ 
+              width: 150, 
+              height: 150,
+              border: '2px solid #333'
+            }}
           />
-        ))}
-      </div>
-    </div>
+          
+          {/* Course Info */}
+          <Box sx={{ flex: 1 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+              <Typography variant="h4" fontWeight="bold">
+                {courseMock.number} {courseMock.name}
+              </Typography>
+              
+            </Box>
+
+            <Box sx={{ display: 'flex', gap: 3, mb: 2, color: 'gray' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <FaGraduationCap />
+                <Typography>{courseMock.professor}</Typography>
+              </Box>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <FaMapMarkerAlt />
+                <Typography>{courseMock.location}</Typography>
+              </Box>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <FaClock />
+                <Typography>{courseMock.schedule}</Typography>
+              </Box>
+            </Box>
+
+            <Typography variant="body1" color="gray" sx={{ mb: 1 }}>
+              {courseMock.website}
+            </Typography>
+
+            <Typography variant="body1">
+              {courseMock.description}
+            </Typography>
+          </Box>
+        </Box>
+      </Box>
+
+      {/* Scrollable Posts Grid */}
+      <Box sx={{ 
+        flex: 1,
+        overflowY: 'auto',
+        p: 2,
+        borderTop: '1px solid #222'
+      }}>
+        <Grid container spacing={1}>
+          {posts.map((post) => (
+            <Grid item xs={4} key={post.id}>
+              <Box 
+                sx={{ 
+                  position: 'relative',
+                  paddingTop: '100%', // 1:1 Aspect ratio
+                  '&:hover': {
+                    '& .overlay': {
+                      opacity: 1
+                    }
+                  }
+                }}
+              >
+                <Box
+                  component="img"
+                  src={post.image}
+                  alt={post.caption}
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+                <Box 
+                  className="overlay"
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    bgcolor: 'rgba(0,0,0,0.7)',
+                    opacity: 0,
+                    transition: 'opacity 0.2s',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    p: 2,
+                    textAlign: 'center'
+                  }}
+                >
+                  <Typography variant="body2">
+                    {post.caption}
+                  </Typography>
+                </Box>
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+    </Box>
   );
 };
 
