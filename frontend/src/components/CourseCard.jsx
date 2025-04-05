@@ -1,6 +1,6 @@
 import React from 'react';
 import RadarChart from './RadarChart';
-import { FaMapMarkerAlt, FaClock, FaHeart, FaCommentDots, FaBookmark, FaShare } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaClock,FaBookmark } from 'react-icons/fa';
 
 const CourseCard = ({ course }) => {
   return (
