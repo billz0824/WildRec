@@ -7,9 +7,9 @@ import google.generativeai as genai
 from info import *
 import time
 
-###############################
-# Configurations for processor
-###############################
+#######################################################################################################
+# Configurations for basic processor, this processor preserves all original structure of CTEC reports #
+#######################################################################################################
 
 class CFG:
     USE_GEMINI = False

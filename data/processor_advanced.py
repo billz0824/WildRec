@@ -7,9 +7,9 @@ import google.generativeai as genai
 from info import *
 import time
 
-###############################
-# Configurations for processor
-###############################
+#######################################################################################################
+# Configurations for advanced processor, this processor summarizes questions and extracts mean values #
+#######################################################################################################
 
 class CFG:
     USE_GEMINI = True
