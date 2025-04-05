@@ -1,0 +1,102 @@
+{
+  "course_name": "ECON 310: Microeconomics",
+  "generation_timestamp": "2025-04-05T15:46:16.472765",
+  "num_topics": 5,
+  "script": "```xml\n<HOST1>Welcome to Economiquity, the podcast that breaks down the world of economics into digestible insights. I'm your host, Sam, and today we're diving into the world of microeconomics with a focus on Northwestern University's course \"ECON 310.\" Joining me is Dr. Emily Prior, an expert in economic theory. Emily, welcome to the show!</HOST1>\n\n<EXPERT1>Hi Sam, thanks for having me. I'm excited to discuss some of the key concepts from this comprehensive course on microeconomics.</EXPERT1>\n\n<HOST2>Great! Let's start with \"ECON 310-1.\" I understand that one of its key focuses is consumer behavior and the theory of demand. Could you explain what that entails?</HOST2>\n\n<EXPERT2>Absolutely, Sam. In \"ECON 310-1,\" students delve into how individual consumers make decisions about what to buy given their budget constraints. This involves understanding how demand curves are derived from consumer choices. The course really emphasizes the intricacies of these choices and the resulting welfare changes when prices shift.</EXPERT2>\n\n<HOST3>Very interesting. Now, what about the second part of the course, \"ECON 310-2\"? It seems to cover more advanced topics like game theory. What should students expect from this module?</HOST3>\n\n<EXPERT3>Game theory is a fascinating area that examines strategic interactions between agents. In \"ECON 310-2,\" students learn about how individuals or firms make decisions where the outcome depends not only on their own actions but also on the actions of others\u2014in essence, you're thinking ahead to anticipate the moves of competitors or partners. This can involve anything from pricing strategies in oligopolies to negotiations.</EXPERT3>\n\n<HOST4>And I noticed topics like risk and uncertainty, which sound quite complex. Can you give us some clarity on these concepts?</HOST4>\n\n<EXPERT4>Sure, Sam. Risk and uncertainty in microeconomics involve understanding how individuals and firms make decisions when the outcomes are not certain. This could relate to investment decisions, insurance markets, or even consumer purchases that involve future payoffs. The course uses mathematical models to explore how these elements affect decision-making processes.</EXPERT4>\n\n<HOST5>That ties into information asymmetries, right? How does that concept play into microeconomics?</HOST5>\n\n<EXPERT5>Exactly. Information asymmetries occur when one party in a transaction has more or better information than the other, potentially leading to market failures. This concept is crucial as it explores how these disparities can distort market outcomes, leading to inefficiencies. \"ECON 310-2\" covers how these issues can be addressed through various mechanisms like signaling and screening.</EXPERT5>\n\n<HOST6>That's a lot to take in! Lastly, how do market spillovers and general equilibrium fit into the syllabus?</HOST6>\n\n<EXPERT6>Great question. Market spillovers refer to how economic actions or policies in one market can affect outcomes in another\u2014think of pollution affecting health markets. General equilibrium, on the other hand, is about understanding how various markets in an economy interact simultaneously to reach a point of balance. Students in \"ECON 310-2\" study these interactions using comprehensive models that consider multiple variables at once.</EXPERT6>\n\n<HOST7>Wow, this course sounds like a deep dive into microeconomic theory. Thank you, Emily, for shedding light on these important concepts. And thank you to all our listeners today for joining us on Economiquity. If you're studying or interested in economics, Northwestern University's \"ECON 310\" seems like a must-attend. Until next time, keep questioning, keep learning, and keep exploring the economic world around you!</HOST7>\n```\n",
+  "audio_path": "output/audio/full_podcast.mp3",
+  "segments": [
+    {
+      "speaker": "host",
+      "number": 1,
+      "text": "Welcome to Economiquity, the podcast that breaks down the world of economics into digestible insights. I'm your host, Sam, and today we're diving into the world of microeconomics with a focus on Northwestern University's course \"ECON 310.\" Joining me is Dr. Emily Prior, an expert in economic theory. Emily, welcome to the show!",
+      "audio_path": "output/audio/01a79c86-adb0-414e-bd85-90ba73fc6d73.mp3",
+      "duration_ms": 25652
+    },
+    {
+      "speaker": "expert",
+      "number": 1,
+      "text": "Hi Sam, thanks for having me. I'm excited to discuss some of the key concepts from this comprehensive course on microeconomics.",
+      "audio_path": "output/audio/952bd305-e5b5-4b8e-a1b8-60146a3fcf56.mp3",
+      "duration_ms": 6896
+    },
+    {
+      "speaker": "host",
+      "number": 2,
+      "text": "Great! Let's start with \"ECON 310-1.\" I understand that one of its key focuses is consumer behavior and the theory of demand. Could you explain what that entails?",
+      "audio_path": "output/audio/b18d14d5-9ce9-4984-8392-4f692415c919.mp3",
+      "duration_ms": 11964
+    },
+    {
+      "speaker": "expert",
+      "number": 2,
+      "text": "Absolutely, Sam. In \"ECON 310-1,\" students delve into how individual consumers make decisions about what to buy given their budget constraints. This involves understanding how demand curves are derived from consumer choices. The course really emphasizes the intricacies of these choices and the resulting welfare changes when prices shift.",
+      "audio_path": "output/audio/6103fc11-7b39-4759-a578-8c5bc5219bc7.mp3",
+      "duration_ms": 20950
+    },
+    {
+      "speaker": "host",
+      "number": 3,
+      "text": "Very interesting. Now, what about the second part of the course, \"ECON 310-2\"? It seems to cover more advanced topics like game theory. What should students expect from this module?",
+      "audio_path": "output/audio/acf40aae-4657-46e5-8c6b-0eddd1949d60.mp3",
+      "duration_ms": 13401
+    },
+    {
+      "speaker": "expert",
+      "number": 3,
+      "text": "Game theory is a fascinating area that examines strategic interactions between agents. In \"ECON 310-2,\" students learn about how individuals or firms make decisions where the outcome depends not only on their own actions but also on the actions of others\u2014in essence, you're thinking ahead to anticipate the moves of competitors or partners. This can involve anything from pricing strategies in oligopolies to negotiations.",
+      "audio_path": "output/audio/58de4559-7df6-427a-999d-e257b04bb9a3.mp3",
+      "duration_ms": 25417
+    },
+    {
+      "speaker": "host",
+      "number": 4,
+      "text": "And I noticed topics like risk and uncertainty, which sound quite complex. Can you give us some clarity on these concepts?",
+      "audio_path": "output/audio/b7a791f3-4976-4090-8124-033456ebfacc.mp3",
+      "duration_ms": 8333
+    },
+    {
+      "speaker": "expert",
+      "number": 4,
+      "text": "Sure, Sam. Risk and uncertainty in microeconomics involve understanding how individuals and firms make decisions when the outcomes are not certain. This could relate to investment decisions, insurance markets, or even consumer purchases that involve future payoffs. The course uses mathematical models to explore how these elements affect decision-making processes.",
+      "audio_path": "output/audio/aff164a1-696e-4af9-9821-165355c49ee8.mp3",
+      "duration_ms": 21577
+    },
+    {
+      "speaker": "host",
+      "number": 5,
+      "text": "That ties into information asymmetries, right? How does that concept play into microeconomics?",
+      "audio_path": "output/audio/ac567cc8-5277-4acf-945b-318f53b8d315.mp3",
+      "duration_ms": 6713
+    },
+    {
+      "speaker": "expert",
+      "number": 5,
+      "text": "Exactly. Information asymmetries occur when one party in a transaction has more or better information than the other, potentially leading to market failures. This concept is crucial as it explores how these disparities can distort market outcomes, leading to inefficiencies. \"ECON 310-2\" covers how these issues can be addressed through various mechanisms like signaling and screening.",
+      "audio_path": "output/audio/d569404f-d80e-43fa-89a0-793309f6403a.mp3",
+      "duration_ms": 24686
+    },
+    {
+      "speaker": "host",
+      "number": 6,
+      "text": "That's a lot to take in! Lastly, how do market spillovers and general equilibrium fit into the syllabus?",
+      "audio_path": "output/audio/f81ce69d-7352-47ff-baf9-829df2bd2e1d.mp3",
+      "duration_ms": 7784
+    },
+    {
+      "speaker": "expert",
+      "number": 6,
+      "text": "Great question. Market spillovers refer to how economic actions or policies in one market can affect outcomes in another\u2014think of pollution affecting health markets. General equilibrium, on the other hand, is about understanding how various markets in an economy interact simultaneously to reach a point of balance. Students in \"ECON 310-2\" study these interactions using comprehensive models that consider multiple variables at once.",
+      "audio_path": "output/audio/8417fdd7-6dbc-4a00-9be9-549d4795f18e.mp3",
+      "duration_ms": 26436
+    },
+    {
+      "speaker": "host",
+      "number": 7,
+      "text": "Wow, this course sounds like a deep dive into microeconomic theory. Thank you, Emily, for shedding light on these important concepts. And thank you to all our listeners today for joining us on Economiquity. If you're studying or interested in economics, Northwestern University's \"ECON 310\" seems like a must-attend. Until next time, keep questioning, keep learning, and keep exploring the economic world around you!",
+      "audio_path": "output/audio/b3cb945b-f56d-4650-910a-494b0e27d080.mp3",
+      "duration_ms": 29544
+    }
+  ],
+  "total_duration_ms": 229353,
+  "total_duration_formatted": "3.82 minutes"
+}
