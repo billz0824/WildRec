@@ -172,3 +172,11 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Info
+info.py
+
+# Data
+html_reports/
+parsed_base_reports
+parsed_reports/
