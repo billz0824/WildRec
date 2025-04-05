@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaHome, FaBookmark, FaCompass, FaListAlt } from 'react-icons/fa';
+import { FaHome, FaBookmark, FaCompass } from 'react-icons/fa';
 
 const Sidebar = () => {
   return (
@@ -20,12 +20,12 @@ const Sidebar = () => {
         </NavLink>
 
         <NavLink
-          to="/foryou"
+          to="/discover"
           className={({ isActive }) =>
             `flex items-center gap-3 hover:text-purple-400 transition ${isActive ? 'text-purple-400' : 'text-white'}`
           }
         >
-          <FaCompass /> For You
+          <FaCompass /> Discover Page
         </NavLink>
 
         <NavLink
@@ -37,14 +37,6 @@ const Sidebar = () => {
           <FaBookmark /> Saved Courses
         </NavLink>
 
-        <NavLink
-          to="/feed"
-          className={({ isActive }) =>
-            `flex items-center gap-3 hover:text-purple-400 transition ${isActive ? 'text-purple-400' : 'text-white'}`
-          }
-        >
-          <FaListAlt /> Feed
-        </NavLink>
       </nav>
     </div>
   );
