@@ -44,22 +44,12 @@ const CourseCard = ({ course }) => {
 
       {/* Social Icons (Right side bar style) */}
       <div className="absolute top-6 right-6 flex flex-col items-center space-y-4 text-xs text-gray-400">
-        <div className="flex flex-col items-center">
-          <FaHeart className="text-white" />
-          <span>{course.likes}K</span>
-        </div>
-        <div className="flex flex-col items-center">
-          <FaCommentDots className="text-white" />
-          <span>{course.comments}K</span>
-        </div>
+
         <div className="flex flex-col items-center">
           <FaBookmark className="text-white" />
           <span>{course.saves}K</span>
         </div>
-        <div className="flex flex-col items-center">
-          <FaShare className="text-white" />
-          <span>{course.shares}K</span>
-        </div>
+
       </div>
     </div>
   );

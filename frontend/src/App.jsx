@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Onboarding from './pages/OnboardingPage';
+import CourseCardTest from './pages/CourseCardTest';
+import HomePage from './pages/HomePage';
 
 function App() {
   return (
@@ -11,7 +13,8 @@ function App() {
         </header>
         <Routes>
           <Route path="/onboarding" element={<Onboarding />} />
-          <Route path="/home" element={<div>Home Page</div>} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/course-card-test" element={<CourseCardTest />} />
           <Route path="/" element={<Navigate to="/onboarding" replace />} />
         </Routes>
       </div>
