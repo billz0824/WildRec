@@ -16,6 +16,7 @@ class CFG:
     GENAI_API_KEY = API_KEY
     INPUT_FOLDER = "data/html_reports"
     OUTPUT_FOLDER = "data/parsed_base_reports"
+    LIMIT = 5
     # FACTORS = {
     #     "Table for 1. Provide an overall rating of the instruction.-1. Provide an overall rating of the instruction.-Statistics.": "Instruction Rating",
     #     "Table for 2. Provide an overall rating of the course.-1. Provide an overall rating of the course.-Statistics.": "Course Rating",
@@ -130,7 +131,11 @@ def run():
     os.makedirs(CFG.OUTPUT_FOLDER, exist_ok=True)
     files = glob.glob(os.path.join(CFG.INPUT_FOLDER, "*.html"))
 
+    parsed = 0
     for file_path in files:
+        if CFG.LIMIT:
+            if parsed > CFG.LIMIT: break
+
         report = parse_report(file_path)
         
         file_name = report["title_tag"]
@@ -142,6 +147,7 @@ def run():
             with open(output_path, "w", encoding="utf-8") as out:
                 json.dump(report, out, indent=2, ensure_ascii=False)
             print(f"✔ Parsed {file_name}")
+            parsed += 1
 
 if __name__ == "__main__":
     run()

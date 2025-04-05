@@ -107,7 +107,11 @@ def run():
     os.makedirs(CFG.OUTPUT_FOLDER, exist_ok=True)
     files = glob.glob(os.path.join(CFG.INPUT_FOLDER, "*.html"))
 
+    parsed = 0
     for file_path in files:
+        if CFG.LIMIT:
+            if parsed > CFG.LIMIT: break
+
         report = parse_report(file_path)
         file_name = report["course_name"]+"_"+report["professor"] + "_" + report["term"]
         if report["quantitative_raw"] == []:
@@ -119,6 +123,7 @@ def run():
             with open(output_path, "w", encoding="utf-8") as out:
                 json.dump(report, out, indent=2, ensure_ascii=False)
             print(f"✔ Parsed {file_name}")
+            parsed += 1
 
 if __name__ == "__main__":
     run()
