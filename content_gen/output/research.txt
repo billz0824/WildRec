@@ -1,41 +1,34 @@
-Web Search Results for 'ECON 310: Microeconomics':
+Web Search Results for 'Econ 310-1':
 
-Here is the most up-to-date information about Northwestern University's course "ECON 310: Microeconomics," specifically focusing on "ECON 310-1" and "ECON 310-2."
+Here's the most up-to-date information about the Northwestern University course 'Econ 310-1: Microeconomics':
 
-## Detailed Overview of the Course
-The Northwestern University course "ECON 310-1: Microeconomics I" offers a rigorous treatment of core microeconomic concepts. It builds upon the foundational course "ECON 202" and delves into mathematical models for analyzing consumer and producer behavior in market economies. The course emphasizes equilibrium analysis and comparative statics in competitive and monopolistic markets[1][3].
-
-"ECON 310-2: Microeconomics II" continues this sequence by exploring advanced microeconomic topics, including social wellbeing, social choice, risk and uncertainty, information asymmetries, game theory, market spillovers, and general equilibrium[3][5].
+## Detailed Overview of the Course Content
+ECON 310-1 is a course tailored primarily for economics majors and minors, focusing on the development and application of economic theory using mathematical models. It builds on concepts introduced in ECON 202, delving deeper into the behavior of optimizing consumers and producers in market economies. The course covers the fundamental workings of markets, including equilibrium analysis and comparative statics to understand competitive, monopolistic, and monopsonistic markets[1][2].
 
 ## Key Topics and Concepts Covered
-- **ECON 310-1:**
-  - Consumer behavior and the theory of demand
-  - Costs of production and equilibrium in competitive and monopolistic markets[1][3].
-- **ECON 310-2:**
-  - Social wellbeing and social choice
-  - Risk and uncertainty
-  - Information asymmetries
-  - Game theory
-  - Market spillovers
-  - General equilibrium[3][5].
+Key topics include:
+- **Consumer Behavior**: Analyzing satisfaction-maximizing choices under budget constraints and deriving demand curves[1][2].
+- **Production and Cost Analysis**: Examining a firm's technology using production functions, cost curves, and supply curves[1][2].
+- **Market Structures**: Understanding equilibrium in perfectly competitive, monopoly, and possibly monopsony markets[1][2].
 
 ## Learning Objectives
-For **ECON 310-1**, objectives include:
-1. Analyzing supply and demand curves for equilibrium and resource allocation.
-2. Deriving demand curves from consumer choices and assessing welfare changes.
-3. Characterizing firm technology using production functions and cost curves.
-4. Comparing outcomes in competitive, monopoly, and monopsony markets[1].
-
-For **ECON 310-2**, objectives typically involve applying microeconomic tools to analyze complex market interactions and decision-making under uncertainty.
+By the end of the course, students will be able to:
+1. Use supply and demand curves to analyze equilibrium and government interventions in competitive markets.
+2. Model consumer demand and assess welfare changes due to price shifts.
+3. Characterize firms' technologies and production decisions.
+4. Compare market outcomes across different market structures[1][2].
 
 ## Typical Assignments or Projects
-Typical assignments are likely to include:
-- Mathematical problem sets applying calculus to microeconomic concepts.
-- Analysis of case studies or data to illustrate market dynamics.
-- Discussion sections focusing on applying theoretical models to real-world scenarios[1].
+Assignments include **weekly problem sets** and **four exams**, with no calculators allowed during exams to emphasize problem-solving without technology[2]. Students are encouraged to practice with old exams and end-of-chapter exercises for reinforcement[2].
 
 ## Required Textbooks
-While the specific textbook for Northwestern's ECON 310 is not mentioned in the provided sources, common textbooks for microeconomics include those by authors like Gregory Mankiw or Robert Pindyck and Daniel Rubinfeld[4].
+The specific required textbooks are not explicitly mentioned in the available search results.
 
 ## Syllabus Information
-The syllabus typically outlines the course structure, prerequisites, meeting times, and instructor details. For **ECON 310-1**, prerequisites include "ECON 201," "ECON 202," and "MATH 220"[1]. A syllabus document would provide detailed weekly topics and any additional required or recommended readings[1][3].
+The course syllabus includes a detailed schedule with exam dates:
+- **Exam 1**: Covers chapters 1, 2, and 10.
+- **Exam 2**: Covers chapters 3-5.
+- **Exam 3**: Covers chapters 6-9.
+- **Final Exam**: Cumulative and includes broader questions assessing overall mastery[2].
+
+Prerequisites for the course are ECON 201, ECON 202, and MATH 220[1][2].

@@ -81,52 +81,102 @@ class GPT4oAPI:
         self.client = OpenAI(api_key=self.api_key)
         logger.info("GPT4oAPI initialized")
     
-    def generate_podcast_script(self, course_info: str, num_topics: int = 5) -> Dict[str, str]:
-        """Generate a podcast script with two speakers discussing course topics"""
-        logger.info(f"Generating podcast script with {num_topics} topics")
+    def extract_key_topics(self, course_info: str, num_topics: int = 5) -> List[Dict[str, str]]:
+        """Extract distinct key topics from the course information"""
+        logger.info(f"Extracting {num_topics} key topics from course information")
         
         system_prompt = """
-        Create a podcast script with two speakers: 
-        - A host who guides the conversation
-        - An expert who explains the concepts
+        You are an educational content analyst. Your task is to identify distinct key topics 
+        from a university course and provide a concise title and brief description for each topic.
         
-        The script should introduce key concepts from a university course in an engaging, 
-        conversational style. Each topic should involve both speakers, with the host asking 
-        questions and the expert providing knowledgeable responses.
+        Format your response as a JSON array where each object has:
+        1. "topic_id": A unique number for the topic
+        2. "title": A concise, descriptive title for the topic
+        3. "description": A brief 2-3 sentence description of what this topic covers
         
-        Format the script using XML tags as follows:
-        
-        <HOST1>Host's first line...</HOST1>
-        <EXPERT1>Expert's first response...</EXPERT1>
-        <HOST2>Host's second line...</HOST2>
-        <EXPERT2>Expert's second response...</EXPERT2>
-        
-        And so on.
-        
-        The numbers in the tags should indicate the sequence. Make the conversation natural
-        and engaging, as if it were a real podcast episode.
-        
-        IMPORTANT: Base your script ONLY on the provided web search information. Do not
-        add fictional information or make up details about the course. Strictly use the
-        content that was found through the web search.
+        IMPORTANT: Base your analysis ONLY on the provided web search information. Do not
+        make up topics that aren't covered in the search results.
         """
         
         user_prompt = f"""
         Based on this Northwestern University course information that was retrieved through
-        a web search using Perplexity Sonar, create a podcast script covering {num_topics} 
-        key concepts or topics from the course:
+        a web search using Perplexity Sonar, identify {num_topics} distinct key knowledge 
+        topics covered in the course:
         
         {course_info}
         
-        Start with a brief introduction where the host welcomes listeners and introduces
-        the expert and the course topic. Then have them discuss each key concept one by one, 
-        with the host asking questions and the expert providing clear, informative responses.
-        The expert should only discuss information that was found through the web search.
-        
-        End with a brief conclusion where they summarize what was covered and thank the listeners.
+        Return your response in valid JSON format as described in the system instructions.
+        Make sure each topic is truly distinct and focuses on an important concept or skill
+        taught in the course.
         """
         
-        logger.info("Sending request to OpenAI for script generation")
+        logger.info("Sending request to OpenAI for topic extraction")
+        try:
+            response = self.client.chat.completions.create(
+                model="gpt-4o",
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt}
+                ],
+                response_format={"type": "json_object"}
+            )
+            
+            content = response.choices[0].message.content
+            topics_data = json.loads(content)
+            topics = topics_data.get("topics", []) if isinstance(topics_data, dict) and "topics" in topics_data else topics_data
+            
+            logger.info(f"Successfully extracted {len(topics)} topics")
+            return topics
+            
+        except Exception as e:
+            logger.error(f"Error extracting topics: {str(e)}")
+            raise
+    
+    def generate_short_podcast_script(self, topic: Dict[str, Any], course_info: str) -> Dict[str, Any]:
+        """Generate a short podcast script (1 minute) on a specific topic"""
+        topic_id = topic.get("topic_id", "unknown")
+        topic_title = topic.get("title", "Unknown Topic")
+        logger.info(f"Generating short podcast script for Topic {topic_id}: {topic_title}")
+        
+        system_prompt = """
+        Create a short podcast script (approximately 1 minute when read aloud) with two speakers: 
+        - A host who introduces the topic and asks one key question
+        - An expert who explains the concept clearly and concisely
+        
+        The script should focus on ONE specific topic from a university course.
+        
+        Format the script using XML tags as follows:
+        
+        <HOST1>Host's introduction (5-10 seconds when spoken)...</HOST1>
+        <EXPERT1>Expert's first response (20-25 seconds when spoken)...</EXPERT1>
+        <HOST2>Host's follow-up question (5 seconds when spoken)...</HOST2>
+        <EXPERT2>Expert's conclusion (20-25 seconds when spoken)...</EXPERT2>
+        
+        Keep the entire script concise - it should take about 1 minute to read aloud.
+        
+        IMPORTANT: Base your script ONLY on the provided course information. Do not
+        add fictional information or make up details about the topic.
+        """
+        
+        user_prompt = f"""
+        Create a short, focused podcast script about this specific topic from the course:
+        
+        TOPIC: {topic_title}
+        DESCRIPTION: {topic.get('description', '')}
+        
+        Here is the full course information for context:
+        {course_info}
+        
+        The script should be designed to create a ~1 minute podcast when read aloud.
+        Start with the host introducing the topic briefly, then asking the expert one key 
+        question about it. The expert should provide a clear, concise explanation. The host
+        can ask one follow-up or clarifying question, and the expert should conclude with
+        a final point or takeaway.
+        
+        Remember to keep the responses SHORT - this is meant to be a brief, focused mini-podcast.
+        """
+        
+        logger.info(f"Sending request to OpenAI for short script generation on Topic {topic_id}")
         try:
             response = self.client.chat.completions.create(
                 model="gpt-4o",
@@ -137,7 +187,7 @@ class GPT4oAPI:
             )
             
             script = response.choices[0].message.content
-            logger.info(f"Script generated successfully, length: {len(script)} characters")
+            logger.info(f"Script generated successfully for Topic {topic_id}, length: {len(script)} characters")
             
             # Count the number of speaker turns
             host_count = len(re.findall(r"<HOST\d+>", script))
@@ -145,11 +195,12 @@ class GPT4oAPI:
             logger.info(f"Script contains {host_count} host turns and {expert_count} expert turns")
             
             return {
-                "script": script,
-                "course_info": course_info
+                "topic_id": topic_id,
+                "topic_title": topic_title,
+                "script": script
             }
         except Exception as e:
-            logger.error(f"Error generating script: {str(e)}")
+            logger.error(f"Error generating script for Topic {topic_id}: {str(e)}")
             raise
 
 # ElevenLabs Audio Generator for Podcast
@@ -220,7 +271,7 @@ class PodcastAudioGenerator:
         logger.warning(f"No match found for voice '{voice_name}', using fallback: {fallback_id}")
         return fallback_id
     
-    def text_to_speech_file(self, text: str, voice_id: str) -> str:
+    def text_to_speech_file(self, text: str, voice_id: str, filename: str = None) -> str:
         """Generate speech file using ElevenLabs"""
         logger.info(f"Generating speech for text of length {len(text)} with voice {voice_id}")
         
@@ -239,7 +290,11 @@ class PodcastAudioGenerator:
             )
             
             # Save to file
-            file_path = os.path.join(self.audio_dir, f"{uuid.uuid4()}.mp3")
+            if filename:
+                file_path = os.path.join(self.audio_dir, f"{filename}.mp3")
+            else:
+                file_path = os.path.join(self.audio_dir, f"{uuid.uuid4()}.mp3")
+                
             total_bytes = 0
             
             with open(file_path, "wb") as f:
@@ -254,9 +309,9 @@ class PodcastAudioGenerator:
             logger.error(f"Error generating speech: {str(e)}")
             raise
     
-    def generate_podcast_audio(self, script: str) -> Dict[str, Any]:
+    def generate_podcast_audio(self, script: str, topic_id: str, topic_title: str) -> Dict[str, Any]:
         """Generate audio for podcast script"""
-        logger.info("Starting podcast audio generation")
+        logger.info(f"Starting podcast audio generation for Topic {topic_id}: {topic_title}")
         start_time = datetime.now()
         
         # Parse script to extract speaker parts
@@ -284,10 +339,11 @@ class PodcastAudioGenerator:
         
         for i, (speaker, num, text) in enumerate(all_parts):
             voice_id = self.speaker_voices[speaker]
+            segment_filename = f"topic_{topic_id}_{speaker}_{num}"
             logger.info(f"Processing part {i+1}/{len(all_parts)}: {speaker} #{num} ({len(text)} chars)")
             
             try:
-                audio_path = self.text_to_speech_file(text, voice_id)
+                audio_path = self.text_to_speech_file(text, voice_id, segment_filename)
                 audio_segment = AudioSegment.from_mp3(audio_path)
                 audio_segments.append(audio_segment)
                 
@@ -317,7 +373,8 @@ class PodcastAudioGenerator:
                 total_duration += len(segment)
             
             # Save combined audio
-            combined_path = os.path.join(self.audio_dir, "full_podcast.mp3")
+            combined_filename = f"topic_{topic_id}_podcast"
+            combined_path = os.path.join(self.audio_dir, f"{combined_filename}.mp3")
             combined_audio.export(combined_path, format="mp3")
             
             end_time = datetime.now()
@@ -328,9 +385,12 @@ class PodcastAudioGenerator:
             logger.info(f"Combined audio saved to: {combined_path}")
             
             return {
+                "topic_id": topic_id,
+                "topic_title": topic_title,
                 "segments": segment_info,
                 "combined_audio_path": combined_path,
                 "total_duration_ms": total_duration,
+                "total_duration_formatted": f"{total_duration/1000:.2f} seconds",
                 "processing_time_s": processing_time
             }
         else:
@@ -358,12 +418,16 @@ class PodcastGenerationWorkflow:
         self.output_dir = Path(output_dir or os.getenv("OUTPUT_DIR", "./output"))
         self.output_dir.mkdir(parents=True, exist_ok=True)
         
+        # Create subdirectories for organization
+        self.scripts_dir = self.output_dir / "scripts"
+        self.scripts_dir.mkdir(exist_ok=True)
+        
         logger.info(f"Output directory: {self.output_dir}")
         self.audio_generator = PodcastAudioGenerator(elevenlabs_api_key, str(self.output_dir))
     
-    def generate_podcast(self, course_name: str, num_topics: int = 5) -> Dict[str, Any]:
-        """Generate a podcast about a Northwestern course"""
-        logger.info(f"Starting podcast generation for course: '{course_name}' with {num_topics} topics")
+    def generate_topic_podcasts(self, course_name: str, num_topics: int = 5) -> Dict[str, Any]:
+        """Generate multiple short podcasts about different topics from a course"""
+        logger.info(f"Starting multi-topic podcast generation for course: '{course_name}' with {num_topics} topics")
         start_time = datetime.now()
         
         # Step 1: Research the course using Perplexity Sonar (web search)
@@ -395,53 +459,100 @@ class PodcastGenerationWorkflow:
             f.write(course_info)
         logger.info(f"Research results saved to {research_path}")
         
-        # Step 2: Generate podcast script
-        logger.info("STEP 2: Generating podcast script using GPT-4o")
-        script_data = self.gpt4o_api.generate_podcast_script(course_info, num_topics)
+        # Step 2: Extract distinct topics from the course
+        logger.info("STEP 2: Extracting distinct topics from course information")
+        topics = self.gpt4o_api.extract_key_topics(course_info, num_topics)
         
-        # Save script
-        script_path = self.output_dir / "podcast_script.txt"
-        with open(script_path, "w") as f:
-            f.write(script_data["script"])
-        logger.info(f"Podcast script saved to {script_path}")
+        # Save topics list
+        topics_path = self.output_dir / "topics.json"
+        with open(topics_path, "w") as f:
+            json.dump(topics, f, indent=2)
+        logger.info(f"Extracted {len(topics)} topics and saved to {topics_path}")
         
-        # Step 3: Generate audio
-        logger.info("STEP 3: Generating audio with ElevenLabs")
-        audio_data = self.audio_generator.generate_podcast_audio(script_data["script"])
+        # Step 3: Generate a script for each topic
+        logger.info("STEP 3: Generating scripts for each topic")
+        scripts = []
         
-        # Save metadata
+        for topic in topics:
+            topic_id = topic.get("topic_id", "unknown")
+            topic_title = topic.get("title", "Unknown Topic")
+            
+            # Generate script for this topic
+            script_data = self.gpt4o_api.generate_short_podcast_script(topic, course_info)
+            scripts.append(script_data)
+            
+            # Save individual script
+            script_path = self.scripts_dir / f"topic_{topic_id}_script.txt"
+            with open(script_path, "w") as f:
+                f.write(f"TOPIC: {topic_title}\n\n")
+                f.write(script_data["script"])
+            logger.info(f"Script for Topic {topic_id} saved to {script_path}")
+        
+        # Step 4: Generate audio for each script
+        logger.info("STEP 4: Generating audio for each topic script")
+        audio_results = []
+        
+        for script_data in scripts:
+            topic_id = script_data["topic_id"]
+            topic_title = script_data["topic_title"]
+            script = script_data["script"]
+            
+            # Generate audio for this script
+            audio_data = self.audio_generator.generate_podcast_audio(script, topic_id, topic_title)
+            audio_results.append(audio_data)
+            logger.info(f"Generated audio for Topic {topic_id}: {audio_data['total_duration_formatted']}")
+        
+        # Save comprehensive metadata
         metadata = {
             "course_name": course_name,
             "generation_timestamp": datetime.now().isoformat(),
-            "num_topics": num_topics,
-            "script": script_data["script"],
-            "audio_path": audio_data["combined_audio_path"],
-            "segments": audio_data["segments"],
-            "total_duration_ms": audio_data["total_duration_ms"],
-            "total_duration_formatted": f"{audio_data['total_duration_ms']/60000:.2f} minutes"
+            "num_topics": len(topics),
+            "topics": topics,
+            "podcasts": audio_results
         }
         
-        metadata_path = self.output_dir / "podcast_metadata.json"
+        metadata_path = self.output_dir / "podcasts_metadata.json"
         with open(metadata_path, "w") as f:
             # Convert Path objects to strings for JSON serialization
-            json_metadata = {}
-            for k, v in metadata.items():
-                if isinstance(v, Path):
-                    json_metadata[k] = str(v)
-                elif isinstance(v, list) and all(isinstance(item.get('audio_path'), Path) for item in v if isinstance(item, dict)):
-                    json_metadata[k] = [{**item, 'audio_path': str(item['audio_path'])} for item in v]
-                else:
-                    json_metadata[k] = v
+            json_metadata = self._prepare_json_metadata(metadata)
             json.dump(json_metadata, f, indent=2)
         
         end_time = datetime.now()
         total_processing_time = (end_time - start_time).total_seconds()
         
-        logger.info(f"Podcast generation complete! Total processing time: {total_processing_time:.2f}s")
-        logger.info(f"Audio duration: {audio_data['total_duration_ms']/60000:.2f} minutes")
+        logger.info(f"Multi-topic podcast generation complete! Total processing time: {total_processing_time:.2f}s")
+        logger.info(f"Generated {len(audio_results)} topic podcasts")
         logger.info(f"All files saved to: {self.output_dir}")
         
-        return metadata
+        # Create a summary of results for return
+        summary = {
+            "course_name": course_name,
+            "total_topics": len(topics),
+            "total_processing_time_s": total_processing_time,
+            "output_directory": str(self.output_dir),
+            "topic_podcasts": [
+                {
+                    "topic_id": result["topic_id"],
+                    "topic_title": result["topic_title"],
+                    "audio_path": str(result["combined_audio_path"]),
+                    "duration": result["total_duration_formatted"]
+                }
+                for result in audio_results
+            ]
+        }
+        
+        return summary
+    
+    def _prepare_json_metadata(self, data: Any) -> Any:
+        """Recursively convert Path objects to strings for JSON serialization"""
+        if isinstance(data, Path):
+            return str(data)
+        elif isinstance(data, dict):
+            return {k: self._prepare_json_metadata(v) for k, v in data.items()}
+        elif isinstance(data, list):
+            return [self._prepare_json_metadata(item) for item in data]
+        else:
+            return data
     
     def list_available_voices(self):
         """List all available ElevenLabs voices"""
@@ -451,7 +562,7 @@ class PodcastGenerationWorkflow:
 if __name__ == "__main__":
     import argparse
     
-    parser = argparse.ArgumentParser(description="Generate podcast for Northwestern courses")
+    parser = argparse.ArgumentParser(description="Generate short topic podcasts for Northwestern courses")
     parser.add_argument("course_name", nargs="?", help="Name of the Northwestern course")
     parser.add_argument("--topics", type=int, default=5, help="Number of topics to cover")
     parser.add_argument("--perplexity-key", help="Perplexity API key (overrides .env)")
@@ -498,17 +609,21 @@ if __name__ == "__main__":
             os.environ["EXPERT_VOICE_NAME"] = args.expert_voice
             logger.info(f"Using custom expert voice: {args.expert_voice}")
         
-        # Generate podcast
-        print(f"Starting podcast generation for '{args.course_name}'")
+        # Generate topic podcasts
+        print(f"Starting multi-topic podcast generation for '{args.course_name}'")
+        print(f"This will generate {args.topics} short (1-minute) topic podcasts")
         print(f"This may take several minutes. See logs for progress details.")
         
-        result = workflow.generate_podcast(args.course_name, args.topics)
+        result = workflow.generate_topic_podcasts(args.course_name, args.topics)
         
-        print(f"\nPodcast generation complete!")
-        print(f"Duration: {result['total_duration_formatted']}")
-        print(f"Script saved to: {workflow.output_dir / 'podcast_script.txt'}")
-        print(f"Audio saved to: {result['audio_path']}")
-        print(f"All files saved to: {workflow.output_dir}")
+        print(f"\nMulti-topic podcast generation complete!")
+        print(f"Generated {result['total_topics']} topic podcasts:")
+        
+        for i, podcast in enumerate(result['topic_podcasts']):
+            print(f"  {i+1}. {podcast['topic_title']} ({podcast['duration']})")
+            print(f"     Audio: {podcast['audio_path']}")
+        
+        print(f"\nAll files saved to: {result['output_directory']}")
     
     except Exception as e:
         logger.error(f"Error during podcast generation: {str(e)}", exc_info=True)

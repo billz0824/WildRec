@@ -1,0 +1,27 @@
+[
+  {
+    "topic_id": 1,
+    "title": "Consumer Behavior and Demand Analysis",
+    "description": "This topic explores how consumers make satisfaction-maximizing choices under various budget constraints. It delves into the derivation of demand curves and factors influencing consumer decisions. Students learn to model consumer demand and evaluate welfare changes resulting from price fluctuations."
+  },
+  {
+    "topic_id": 2,
+    "title": "Production Functions and Cost Structures",
+    "description": "This component analyzes a firm's production processes using production functions and cost analysis. It involves examining cost curves and understanding how they inform supply decisions. The topic provides insight into characterizing firms' technologies and production choices to optimize output."
+  },
+  {
+    "topic_id": 3,
+    "title": "Equilibrium and Market Dynamics",
+    "description": "Students study the principles of market equilibrium, focusing on how supply and demand curves are used to analyze competitive market settings. This topic also addresses government interventions and their impact on market outcomes, providing tools to assess various market scenarios."
+  },
+  {
+    "topic_id": 4,
+    "title": "Comparative Analysis of Market Structures",
+    "description": "This topic focuses on understanding different market structures such as perfect competition, monopoly, and possibly monopsony markets. It examines how these structures impact pricing, output, and efficiency, enabling comparisons of market outcomes and strategic behaviors."
+  },
+  {
+    "topic_id": 5,
+    "title": "Applications of Economic Theories in Real-World Scenarios",
+    "description": "Through weekly problem sets and cumulative exams, students apply theoretical models to practical situations. The assignments are designed to emphasize problem-solving skills without reliance on technology, reinforcing the comprehensive understanding of economic theories in diverse contexts."
+  }
+]

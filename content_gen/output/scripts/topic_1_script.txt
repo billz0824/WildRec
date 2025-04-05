@@ -1,0 +1,11 @@
+TOPIC: Consumer Behavior and Demand Analysis
+
+```xml
+<HOST1>Welcome to the Econ Insights mini-podcast! Today, we're exploring Consumer Behavior and Demand Analysis from Northwestern University's Econ 310-1 course. How do consumers make choices to maximize satisfaction under budget constraints?</HOST1>
+
+<EXPERT1>That's a great question! Consumers face budget constraints, meaning they have limited resources to spend on goods and services. To maximize their satisfaction, they make choices that provide the greatest benefit for their money. Economists use utility functions to model this behavior, helping us understand the trade-offs that consumers face. By analyzing these choices, we can derive demand curves, which represent the relationship between price and quantity demanded. Various factors, such as income and preferences, influence consumer decisions and the shape of these curves.</EXPERT1>
+
+<HOST2>So, how does this understanding of consumer behavior help in evaluating welfare changes?</HOST2>
+
+<EXPERT2>Understanding consumer behavior is crucial for evaluating welfare changes, especially when prices fluctuate. By modeling demand, economists can assess how changes in price impact consumer welfare. This analysis helps policymakers predict the effects of taxes, subsidies, and other interventions on market outcomes and consumer well-being. Ultimately, it's about understanding how shifts in price can lead to changes in consumer choices and overall satisfaction.</EXPERT2>
+```
