@@ -22,7 +22,7 @@ const sampleCourses = [
     schedule: "TTH 2:00-3:20",
     prerequisites: "COMP_SCI 211, COMP_SCI 214",
     requirements: "AI/ML Breadth, Technical Elective",
-    description: "Learn fundamental machine learning concepts including supervised learning, unsupervised learning, and deep neural networks.",
+    description: "Study of algorithms that improve through experience. Topics typically include Bayesian learning, decision trees, genetic algorithms, neural networks, Markov models, and reinforcement learning. Assignments include programming projects and written work.",
     saves: 45,
     comments: 23,
     shares: 12

@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RadarChart from './RadarChart';
 import { Card, CardContent, Typography, Box, IconButton, Chip, Tooltip, Avatar } from '@mui/material';
-import { FaMapMarkerAlt, FaClock, FaBookmark, FaRegBookmark, FaUser } from 'react-icons/fa';
+import { FaBookmark, FaRegBookmark, FaUser } from 'react-icons/fa';
 
-const CourseCard = ({ course, showSaveButton = false, onSave }) => {
+const CourseCard = ({ course, showSaveButton = false, onSave, isSaved = false }) => {
   const navigate = useNavigate();
-  const [isSaved, setIsSaved] = useState(false);
+  const [isCourseSaved, setIsSaved] = useState(isSaved);
 
   const handleProfileClick = () => {
     navigate(`/course/${course.id}`);
@@ -14,7 +14,6 @@ const CourseCard = ({ course, showSaveButton = false, onSave }) => {
 
   const handleSaveClick = async () => {
     try {
-      // Call the onSave callback with the course data
       if (onSave) {
         await onSave(course);
         setIsSaved(true);
@@ -24,20 +23,30 @@ const CourseCard = ({ course, showSaveButton = false, onSave }) => {
     }
   };
 
+  // Split requirements into an array
+  const requirementTags = course.requirements.split(', ');
+
   return (
     <Card sx={{ 
       bgcolor: '#1e1e1e', 
       color: 'white', 
       borderRadius: 2,
       position: 'relative',
-      height: '100%',
+      width: '100%',
+      height: 600, // Adjusted fixed height
       '&:hover': {
         boxShadow: '0 0 10px rgba(168, 85, 247, 0.2)'
       }
     }}>
-      <CardContent sx={{ p: 2 }}>
-        {/* Header */}
-        <Box display="flex" justifyContent="space-between" alignItems="flex-start" mb={0.5}>
+      <CardContent sx={{ 
+        height: '100%', 
+        display: 'flex', 
+        flexDirection: 'column',
+        p: 2,
+        '&:last-child': { pb: 2 } // Override Material-UI's default padding
+      }}>
+        {/* Header - Fixed Height */}
+        <Box display="flex" justifyContent="space-between" alignItems="flex-start" height="80px">
           <Box>
             <Typography variant="subtitle2" sx={{ color: '#a855f7', fontSize: '0.8rem' }}>{course.number}</Typography>
             <Typography variant="h6" sx={{ fontSize: '1rem', fontWeight: 'bold', lineHeight: 1.2 }}>{course.name}</Typography>
@@ -59,85 +68,118 @@ const CourseCard = ({ course, showSaveButton = false, onSave }) => {
               </Avatar>
             </Tooltip>
             {showSaveButton && (
-              <Tooltip title={isSaved ? "Saved" : "Save course"}>
+              <Tooltip title={isCourseSaved ? "Saved" : "Save course"}>
                 <IconButton 
                   onClick={handleSaveClick}
                   sx={{ 
-                    color: isSaved ? '#a855f7' : 'white',
+                    color: isCourseSaved ? '#a855f7' : 'white',
                     padding: 0,
                     '&:hover': {
                       color: '#a855f7'
                     }
                   }}
                 >
-                  {isSaved ? <FaBookmark size={14} /> : <FaRegBookmark size={14} />}
+                  {isCourseSaved ? <FaBookmark size={14} /> : <FaRegBookmark size={14} />}
                 </IconButton>
               </Tooltip>
             )}
           </Box>
         </Box>
 
-        {/* Radar Chart */}
-        <Box mb={1} sx={{ transform: 'scale(0.9)', transformOrigin: 'center' }}>
-          <RadarChart data={course.radarData} />
+        {/* Radar Chart - Fixed Height */}
+        <Box height="220px" display="flex" alignItems="center" justifyContent="center">
+          <Box sx={{ transform: 'scale(0.9)', transformOrigin: 'center', width: '100%' }}>
+            <RadarChart data={course.radarData} />
+          </Box>
         </Box>
 
-        {/* Quote */}
-        <Typography 
-          variant="body2" 
-          fontStyle="italic" 
-          textAlign="center" 
-          color="gray" 
-          mb={1.2}
-          sx={{ fontSize: '0.75rem' }}
-        >
-          "{course.quote}"
-        </Typography>
+        {/* Quote - Fixed Height */}
+        <Box height="40px" display="flex" alignItems="center" justifyContent="center">
+          <Typography 
+            variant="body2" 
+            fontStyle="italic" 
+            textAlign="center" 
+            color="gray"
+            sx={{ fontSize: '0.75rem' }}
+          >
+            "{course.quote}"
+          </Typography>
+        </Box>
 
-        {/* Info chips */}
-        <Box display="flex" justifyContent="center" gap={1} mb={1.5}>
-          <Chip 
-            icon={<FaMapMarkerAlt size={12} />} 
-            label={course.location} 
+        {/* Requirement Tags - Fixed Height */}
+        <Box height="60px" display="flex" flexDirection="column" justifyContent="center">
+          <Box display="flex" flexWrap="wrap" justifyContent="center" gap={0.5}>
+            {requirementTags.map((req, index) => (
+              <Chip 
+                key={index}
+                label={req}
+                sx={{ 
+                  bgcolor: '#333', 
+                  color: 'white',
+                  height: '24px',
+                  '& .MuiChip-label': {
+                    fontSize: '0.7rem',
+                    px: 1
+                  }
+                }} 
+              />
+            ))}
+          </Box>
+        </Box>
+
+        {/* Prerequisites - Fixed Height */}
+        <Box height="30px" display="flex" alignItems="center" justifyContent="center">
+          <Typography color="gray" sx={{ fontSize: '0.7rem' }}>
+            <strong style={{ color: '#bbb' }}>Pre-Requisites:</strong> {course.prerequisites}
+          </Typography>
+        </Box>
+
+        {/* Description - Fixed Height */}
+        <Box sx={{ 
+          mt: 2,
+          height: '120px', // Fixed height for description
+          bgcolor: '#2c2c2c', 
+          borderRadius: 1,
+          display: 'flex',
+          flexDirection: 'column',
+        }}>
+          <Typography 
+            variant="caption" 
+            color="purple" 
             sx={{ 
-              bgcolor: '#333', 
-              color: 'white',
-              height: '24px',
-              '& .MuiChip-label': {
-                fontSize: '0.7rem',
-                px: 1
-              }
-            }} 
-          />
-          <Chip 
-            icon={<FaClock size={12} />} 
-            label={course.schedule} 
-            sx={{ 
-              bgcolor: '#333', 
-              color: 'white',
-              height: '24px',
-              '& .MuiChip-label': {
-                fontSize: '0.7rem',
-                px: 1
-              }
-            }} 
-          />
-        </Box>
-
-        {/* Prereqs and Requirements */}
-        <Box textAlign="center" color="gray" sx={{ fontSize: '0.7rem' }} mb={1.5}>
-          <div><strong style={{ color: '#bbb' }}>Pre-Requisites:</strong> {course.prerequisites}</div>
-          <div>{course.requirements}</div>
-        </Box>
-
-        {/* Description */}
-        <Box sx={{ bgcolor: '#2c2c2c', p: 1.5, borderRadius: 1 }}>
-          <Typography variant="caption" color="purple" display="block" gutterBottom sx={{ fontSize: '0.7rem' }}>
+              fontSize: '0.7rem',
+              px: 1.5,
+              pt: 1.5,
+              pb: 0.5,
+              borderBottom: '1px solid #444'
+            }}
+          >
             Course Description:
           </Typography>
-          <Typography variant="body2" color="gray" sx={{ fontSize: '0.75rem' }}>
-            {course.description}
-          </Typography>
+          <Box sx={{ 
+            overflowY: 'auto',
+            height: '100%',
+            px: 1.5,
+            py: 1,
+            '&::-webkit-scrollbar': {
+              width: '4px',
+            },
+            '&::-webkit-scrollbar-track': {
+              background: '#1e1e1e',
+              borderRadius: '4px',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              background: '#444',
+              borderRadius: '4px',
+              '&:hover': {
+                background: '#555',
+              },
+            },
+          }}>
+            <Typography variant="body2" color="gray" sx={{ fontSize: '0.75rem' }}>
+              {course.description}
+            </Typography>
+          </Box>
         </Box>
       </CardContent>
     </Card>
