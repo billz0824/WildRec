@@ -145,7 +145,7 @@ const CourseCard = ({ course, showSaveButton = false, onSave, isSaved = false })
         }}>
           <Typography 
             variant="caption" 
-            color="purple" 
+            color="white" 
             sx={{ 
               fontSize: '0.7rem',
               px: 1.5,

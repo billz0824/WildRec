@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Box, Typography, Avatar, Grid, Button } from '@mui/material';
-import { FaGraduationCap, FaClock, FaMapMarkerAlt } from 'react-icons/fa';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Box, Typography, Avatar, Grid, IconButton } from '@mui/material';
+import { FaGraduationCap, FaArrowLeft } from 'react-icons/fa';
 
 const courseMock = {
   id: 'cs349',
@@ -10,8 +10,6 @@ const courseMock = {
   professor: 'Zach Wood-Doughty',
   avatar: '/cs349.png',
   website: 'coursewikis.com',
-  location: 'Tech L361',
-  schedule: 'TTH 2:00-3:20',
   description: 'Intro to machine learning, covering supervised learning, decision trees, neural networks and more.',
   posts: [
     {
@@ -55,7 +53,12 @@ const courseMock = {
 
 const CourseProfilePage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [posts] = useState(courseMock.posts);
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   return (
     <Box sx={{ 
@@ -78,6 +81,20 @@ const CourseProfilePage = () => {
         bgcolor: '#0f0f0f',
         borderBottom: '1px solid #222'
       }}>
+        {/* Back Button */}
+        <IconButton 
+          onClick={handleBack}
+          sx={{ 
+            color: 'white',
+            mb: 2,
+            '&:hover': {
+              color: '#a855f7'
+            }
+          }}
+        >
+          <FaArrowLeft />
+        </IconButton>
+
         {/* Profile Header */}
         <Box sx={{ display: 'flex', gap: 4, mb: 4 }}>
           {/* Avatar */}
@@ -96,21 +113,12 @@ const CourseProfilePage = () => {
               <Typography variant="h4" fontWeight="bold">
                 {courseMock.number} {courseMock.name}
               </Typography>
-              
             </Box>
 
             <Box sx={{ display: 'flex', gap: 3, mb: 2, color: 'gray' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <FaGraduationCap />
                 <Typography>{courseMock.professor}</Typography>
-              </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <FaMapMarkerAlt />
-                <Typography>{courseMock.location}</Typography>
-              </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <FaClock />
-                <Typography>{courseMock.schedule}</Typography>
               </Box>
             </Box>
 
