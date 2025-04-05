@@ -1,11 +1,8 @@
-TOPIC: Applications of Economic Theories in Real-World Scenarios
+TOPIC: Equilibrium Analysis and Comparative Statics
 
 ```xml
-<HOST1>Welcome to our podcast on Economics in Practice. Today, we're exploring how economic theories apply to real-world scenarios. Joining us is Dr. Green, an expert from Northwestern University. Dr. Green, how are these theories applied practically without reliance on technology?</HOST1>
-
-<EXPERT1>Hi, it's great to be here. The course 'Econ 310-1' utilizes problem sets and exams that require students to apply economic models to practical situations without technology. This approach enhances their problem-solving skills and deepens their understanding of core concepts like consumer behavior and market structures. By analyzing examples like budget constraints or different market equilibriums, students can see theory come to life in a real-world context.</EXPERT1>
-
-<HOST2>Interesting! So, what are the key benefits of solving these problems manually?</HOST2>
-
-<EXPERT2>Without calculators, students engage more deeply with the mathematical models, which solidifies their comprehension. This manual method fosters critical thinking and the ability to tackle diverse market scenarios analytically. It prepares them for real-world economic challenges, where intuitive understanding often precedes technical computation. This holistic approach is crucial for budding economists aiming to apply their knowledge effectively.</EXPERT2>
+<HOST1>Welcome to 'Economics Explored'! Now, folks, have you ever wondered why the price of avocados can shoot up faster than your heartbeat during a horror movie? Today we're diving into equilibrium analysis and comparative statics – yep, that's economist-speak for "Why did my avocado toast just break my budget?”</HOST1>
+<EXPERT1>Great question! Equilibrium analysis is all about figuring out where the quantity of goods supplied equals the quantity demanded. Comparative statics, on the other hand, helps us understand how this market equilibrium changes when external conditions, like demand shifts for avocados, change. Picture a carefully balanced seesaw in a playground - equilibrium is that perfect moment of stillness, and comparative statics examines what happens when a kid jumps on one end.</EXPERT1>
+<HOST2>So, you're saying my wallet woes are basically a playground physics lesson? Should I start carrying a slide rule to the farmers' market?</HOST2>
+<EXPERT2>No need for a slide rule! Just like those see-saws, markets naturally adjust. When you get a demand shock – say, everyone suddenly wants more avocados – it raises prices until a new equilibrium is found. So next time you're saving for that toast, remember: it's not about the avocados, it's about the invisible hands at play balancing the scales.</EXPERT2>
 ```

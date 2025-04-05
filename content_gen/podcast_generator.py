@@ -133,26 +133,32 @@ class GPT4oAPI:
             raise
     
     def generate_short_podcast_script(self, topic: Dict[str, Any], course_info: str) -> Dict[str, Any]:
-        """Generate a short podcast script (1 minute) on a specific topic"""
+        """Generate a short podcast script (1 minute) on a specific topic with standup comedy style intro and hook"""
         topic_id = topic.get("topic_id", "unknown")
         topic_title = topic.get("title", "Unknown Topic")
         logger.info(f"Generating short podcast script for Topic {topic_id}: {topic_title}")
         
         system_prompt = """
         Create a short podcast script (approximately 1 minute when read aloud) with two speakers: 
-        - A host who introduces the topic and asks one key question
+        - A host who introduces the topic with a STANDUP COMEDY style (witty, energetic, slightly provocative)
         - An expert who explains the concept clearly and concisely
         
         The script should focus on ONE specific topic from a university course.
         
+        START WITH A HOOK: Begin with something surprising, a bold claim, a funny observation, 
+        or an unexpected question that will immediately grab the listener's attention.
+        
         Format the script using XML tags as follows:
         
-        <HOST1>Host's introduction (5-10 seconds when spoken)...</HOST1>
+        <HOST1>Start with a HOOK and standup-comedy style introduction (10-15 seconds when spoken)...</HOST1>
         <EXPERT1>Expert's first response (20-25 seconds when spoken)...</EXPERT1>
-        <HOST2>Host's follow-up question (5 seconds when spoken)...</HOST2>
+        <HOST2>Host's follow-up question with a touch of humor (5 seconds when spoken)...</HOST2>
         <EXPERT2>Expert's conclusion (20-25 seconds when spoken)...</EXPERT2>
         
         Keep the entire script concise - it should take about 1 minute to read aloud.
+        
+        Make the introduction genuinely engaging and slightly provocative - like a standup comedian
+        would approach the topic, but keep the expert's responses informative and credible.
         
         IMPORTANT: Base your script ONLY on the provided course information. Do not
         add fictional information or make up details about the topic.
@@ -168,12 +174,17 @@ class GPT4oAPI:
         {course_info}
         
         The script should be designed to create a ~1 minute podcast when read aloud.
-        Start with the host introducing the topic briefly, then asking the expert one key 
-        question about it. The expert should provide a clear, concise explanation. The host
-        can ask one follow-up or clarifying question, and the expert should conclude with
+        
+        START WITH A HOOK - something surprising or provocative about this topic that will 
+        immediately grab the listener's attention. Then have the host introduce the topic 
+        in a STANDUP COMEDY style - witty, energetic, and slightly provocative.
+        
+        The expert should provide a clear, concise explanation. The host's follow-up question
+        should maintain the engaging tone, and the expert should conclude with
         a final point or takeaway.
         
-        Remember to keep the responses SHORT - this is meant to be a brief, focused mini-podcast.
+        Remember to keep the responses SHORT - this is meant to be a brief, focused mini-podcast
+        that keeps listeners engaged through humor and unexpected insights.
         """
         
         logger.info(f"Sending request to OpenAI for short script generation on Topic {topic_id}")
@@ -336,14 +347,16 @@ class PodcastAudioGenerator:
         # Generate audio for each part
         audio_segments = []
         segment_info = []
+        segment_files = []  # Track files to clean up later
         
         for i, (speaker, num, text) in enumerate(all_parts):
             voice_id = self.speaker_voices[speaker]
-            segment_filename = f"topic_{topic_id}_{speaker}_{num}"
+            segment_filename = f"temp_topic_{topic_id}_{speaker}_{num}"  # Mark as temporary
             logger.info(f"Processing part {i+1}/{len(all_parts)}: {speaker} #{num} ({len(text)} chars)")
             
             try:
                 audio_path = self.text_to_speech_file(text, voice_id, segment_filename)
+                segment_files.append(audio_path)  # Add to list for cleanup
                 audio_segment = AudioSegment.from_mp3(audio_path)
                 audio_segments.append(audio_segment)
                 
@@ -352,7 +365,6 @@ class PodcastAudioGenerator:
                     "speaker": speaker,
                     "number": num,
                     "text": text,
-                    "audio_path": audio_path,
                     "duration_ms": len(audio_segment)
                 })
                 
@@ -372,8 +384,9 @@ class PodcastAudioGenerator:
                 combined_audio += segment
                 total_duration += len(segment)
             
-            # Save combined audio
-            combined_filename = f"topic_{topic_id}_podcast"
+            # Save combined audio with a clean, descriptive filename
+            clean_title = re.sub(r'[^\w\s-]', '', topic_title).strip().replace(' ', '_').lower()
+            combined_filename = f"podcast_{topic_id}_{clean_title}"
             combined_path = os.path.join(self.audio_dir, f"{combined_filename}.mp3")
             combined_audio.export(combined_path, format="mp3")
             
@@ -384,10 +397,18 @@ class PodcastAudioGenerator:
             logger.info(f"Processing time: {processing_time:.2f}s")
             logger.info(f"Combined audio saved to: {combined_path}")
             
+            # Clean up temporary segment files
+            logger.info(f"Cleaning up {len(segment_files)} temporary audio segment files")
+            for file_path in segment_files:
+                try:
+                    os.remove(file_path)
+                    logger.debug(f"Removed temporary file: {file_path}")
+                except Exception as e:
+                    logger.warning(f"Could not remove temporary file {file_path}: {str(e)}")
+            
             return {
                 "topic_id": topic_id,
                 "topic_title": topic_title,
-                "segments": segment_info,
                 "combined_audio_path": combined_path,
                 "total_duration_ms": total_duration,
                 "total_duration_formatted": f"{total_duration/1000:.2f} seconds",
@@ -524,17 +545,19 @@ class PodcastGenerationWorkflow:
         logger.info(f"Generated {len(audio_results)} topic podcasts")
         logger.info(f"All files saved to: {self.output_dir}")
         
-        # Create a summary of results for return
+        # Create a summary of results for return - more user-friendly and focused only on final podcasts
         summary = {
             "course_name": course_name,
             "total_topics": len(topics),
             "total_processing_time_s": total_processing_time,
+            "total_processing_time_formatted": f"{total_processing_time/60:.1f} minutes",
             "output_directory": str(self.output_dir),
-            "topic_podcasts": [
+            "podcasts": [
                 {
                     "topic_id": result["topic_id"],
                     "topic_title": result["topic_title"],
-                    "audio_path": str(result["combined_audio_path"]),
+                    "filename": os.path.basename(result["combined_audio_path"]),
+                    "filepath": str(result["combined_audio_path"]),
                     "duration": result["total_duration_formatted"]
                 }
                 for result in audio_results
@@ -616,14 +639,17 @@ if __name__ == "__main__":
         
         result = workflow.generate_topic_podcasts(args.course_name, args.topics)
         
-        print(f"\nMulti-topic podcast generation complete!")
-        print(f"Generated {result['total_topics']} topic podcasts:")
+        print(f"\n✨ Multi-topic podcast generation complete! ✨")
+        print(f"Course: '{result['course_name']}'")
+        print(f"Processing Time: {result['total_processing_time_formatted']}")
+        print(f"\nGenerated {result['total_topics']} engaging mini-podcasts:")
         
-        for i, podcast in enumerate(result['topic_podcasts']):
+        for i, podcast in enumerate(result['podcasts']):
             print(f"  {i+1}. {podcast['topic_title']} ({podcast['duration']})")
-            print(f"     Audio: {podcast['audio_path']}")
+            print(f"     🎧 {podcast['filepath']}")
         
-        print(f"\nAll files saved to: {result['output_directory']}")
+        print(f"\nAll podcasts saved to: {result['output_directory']}")
+        print("Enjoy your standup-style educational content!")
     
     except Exception as e:
         logger.error(f"Error during podcast generation: {str(e)}", exc_info=True)

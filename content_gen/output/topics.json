@@ -1,27 +1,27 @@
 [
   {
     "topic_id": 1,
-    "title": "Consumer Behavior and Demand Analysis",
-    "description": "This topic explores how consumers make satisfaction-maximizing choices under various budget constraints. It delves into the derivation of demand curves and factors influencing consumer decisions. Students learn to model consumer demand and evaluate welfare changes resulting from price fluctuations."
+    "title": "Supply and Demand Analysis",
+    "description": "This topic explores the foundational concepts of supply and demand curves, examining how these curves facilitate equilibrium and efficient resource allocation in markets. Students will learn to analyze the impacts of governmental interventions, such as taxes and subsidies, on market outcomes."
   },
   {
     "topic_id": 2,
-    "title": "Production Functions and Cost Structures",
-    "description": "This component analyzes a firm's production processes using production functions and cost analysis. It involves examining cost curves and understanding how they inform supply decisions. The topic provides insight into characterizing firms' technologies and production choices to optimize output."
+    "title": "Consumer Theory and Demand",
+    "description": "Focusing on consumer behavior, this section delves into the derivation of demand curves and evaluates how shifts in price affect consumer welfare. The analysis involves understanding how consumers optimize utility given budget constraints and market conditions."
   },
   {
     "topic_id": 3,
-    "title": "Equilibrium and Market Dynamics",
-    "description": "Students study the principles of market equilibrium, focusing on how supply and demand curves are used to analyze competitive market settings. This topic also addresses government interventions and their impact on market outcomes, providing tools to assess various market scenarios."
+    "title": "Producer Theory and Cost Analysis",
+    "description": "This topic covers the intricacies of producer behavior by exploring production functions and cost structures. Students will analyze how firms optimize production processes and make decisions about output levels, with a focus on cost minimization and profit maximization."
   },
   {
     "topic_id": 4,
-    "title": "Comparative Analysis of Market Structures",
-    "description": "This topic focuses on understanding different market structures such as perfect competition, monopoly, and possibly monopsony markets. It examines how these structures impact pricing, output, and efficiency, enabling comparisons of market outcomes and strategic behaviors."
+    "title": "Market Structures and Competition",
+    "description": "Students will investigate various market structures, including perfect competition, monopoly, and monopsony. This section highlights the differences in market outcomes and firm behavior under each structure, discussing implications for efficiency and consumer welfare."
   },
   {
     "topic_id": 5,
-    "title": "Applications of Economic Theories in Real-World Scenarios",
-    "description": "Through weekly problem sets and cumulative exams, students apply theoretical models to practical situations. The assignments are designed to emphasize problem-solving skills without reliance on technology, reinforcing the comprehensive understanding of economic theories in diverse contexts."
+    "title": "Equilibrium Analysis and Comparative Statics",
+    "description": "This topic introduces equilibrium analysis in market settings and examines how markets adjust to changes in external conditions through comparative statics. Students will learn methods to predict and quantify changes in market equilibrium resulting from shifts in demand or supply."
   }
 ]
