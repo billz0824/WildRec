@@ -39,7 +39,8 @@ const RadarChart = ({ data }) => {
         suggestedMax: 5,
         ticks: {
           stepSize: 1,
-          color: '#ccc'
+          color: '#fff',
+          display: false,
         },
         pointLabels: {
           color: '#eee',

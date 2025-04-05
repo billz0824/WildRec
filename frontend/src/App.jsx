@@ -22,11 +22,15 @@ function App() {
     <AuthProvider>
       <Router>
         <div className="App">
-          <header className="App-header">
-            <h1>Welcome to WildRec</h1>
-          </header>
           <Routes>
-            <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/onboarding" element={
+              <>
+                <header className="App-header">
+                  <h1>Welcome to WildRec</h1>
+                </header>
+                <Onboarding />
+              </>
+            } />
             <Route path="/home" element={
               <ProtectedRoute>
                 <MainLayout><HomePage /></MainLayout>

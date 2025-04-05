@@ -1,44 +1,68 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { Box, Drawer, List, ListItemButton, ListItemIcon, ListItemText, Typography} from '@mui/material';
 import { FaHome, FaBookmark, FaCompass } from 'react-icons/fa';
+
+const navItems = [
+  { label: 'Home', icon: <FaHome />, to: '/home' },
+  { label: 'Discover', icon: <FaCompass />, to: '/discover' },
+  { label: 'Saved Courses', icon: <FaBookmark />, to: '/saved' },
+];
 
 const Sidebar = () => {
   return (
-    <div className="bg-zinc-950 text-white w-64 h-screen p-6 fixed top-0 left-0 flex flex-col border-r border-gray-800">
+    <Drawer
+      variant="permanent"
+      anchor="left"
+      sx={{
+        width: 240,
+        flexShrink: 0,
+        '& .MuiDrawer-paper': {
+          width: 240,
+          boxSizing: 'border-box',
+          bgcolor: '#0f0f0f',
+          color: 'white',
+          borderRight: '1px solid #333',
+        },
+      }}
+    >
       {/* Logo */}
-      <div className="text-purple-500 font-bold text-2xl mb-10">WildRec</div>
+      <Box sx={{ px: 2, py: 4, display: 'flex', alignItems: 'center' }}>
+        <Typography variant="h6" sx={{ color: '#a855f7', fontWeight: 700 }}>
+          WildRec
+        </Typography>
+      </Box>
 
-      {/* Nav Links */}
-      <nav className="flex flex-col gap-6 text-sm">
-        <NavLink
-          to="/home"
-          className={({ isActive }) =>
-            `flex items-center gap-3 hover:text-purple-400 transition ${isActive ? 'text-purple-400' : 'text-white'}`
-          }
-        >
-          <FaHome /> Home
-        </NavLink>
+      {/* Navigation Links */}
+      <List>
+        {navItems.map((item) => (
+          <NavLink
+            to={item.to}
+            key={item.label}
+            style={{ textDecoration: 'none' }}
+          >
+            {({ isActive }) => (
+              <ListItemButton
+                sx={{
+                  px: 3,
+                  color: isActive ? '#a855f7' : '#ccc',
+                  '&:hover': { bgcolor: '#1f1f1f' },
+                }}
+              >
+                <ListItemIcon sx={{ color: isActive ? '#a855f7' : '#ccc', minWidth: 30 }}>
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText
+                  primary={item.label}
+                  primaryTypographyProps={{ fontSize: 14, fontWeight: isActive ? 600 : 400 }}
+                />
+              </ListItemButton>
+            )}
+          </NavLink>
+        ))}
+      </List>
 
-        <NavLink
-          to="/discover"
-          className={({ isActive }) =>
-            `flex items-center gap-3 hover:text-purple-400 transition ${isActive ? 'text-purple-400' : 'text-white'}`
-          }
-        >
-          <FaCompass /> Discover Page
-        </NavLink>
-
-        <NavLink
-          to="/saved"
-          className={({ isActive }) =>
-            `flex items-center gap-3 hover:text-purple-400 transition ${isActive ? 'text-purple-400' : 'text-white'}`
-          }
-        >
-          <FaBookmark /> Saved Courses
-        </NavLink>
-
-      </nav>
-    </div>
+    </Drawer>
   );
 };
 
