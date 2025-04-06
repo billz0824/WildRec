@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from models.course import Course
 from models.user import User
-from app import db
+from db import db
 
 users_bp = Blueprint('users', __name__, url_prefix='/api/users')
 
@@ -67,7 +67,6 @@ def create_user():
     if not email or not major:
         return jsonify({"error": "Missing required fields: email and major"}), 400
 
-    # ✅ Check if user already exists
     existing_user = User.query.filter_by(email=email).first()
     if existing_user:
         return jsonify({
