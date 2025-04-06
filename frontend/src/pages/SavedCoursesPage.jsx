@@ -1,106 +1,115 @@
 import React, { useState, useEffect } from 'react';
-import CourseCard from '../components/CourseCard';
 import { Box, Typography, Grid } from '@mui/material';
+import CourseCard from '../components/CourseCard';
+import { useUser } from '../context/UserContext';
 
 const SavedCoursesPage = () => {
+  const { userId } = useUser();
   const [savedCourses, setSavedCourses] = useState([]);
 
-  // Fetch saved courses
   useEffect(() => {
     const fetchSavedCourses = async () => {
       try {
-        const response = await fetch('/api/courses/saved');
+        const response = await fetch(
+          `http://127.0.0.1:5000/api/users/${userId}/saved_courses`
+        );
         if (response.ok) {
           const data = await response.json();
-          setSavedCourses(data);
+          // Mark each course as saved
+          const coursesWithSavedFlag = data.map((course) => ({
+            ...course,
+            isSaved: true,
+          }));
+          setSavedCourses(coursesWithSavedFlag);
         }
       } catch (error) {
         console.error('Error fetching saved courses:', error);
       }
     };
 
-    fetchSavedCourses();
-  }, []);
+    if (userId) fetchSavedCourses();
+  }, [userId]);
 
   const handleUnsaveCourse = async (course) => {
     try {
-      const response = await fetch(`/api/courses/unsave/${course.id}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `http://127.0.0.1:5000/api/users/${userId}/unsave_course`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ course_id: course.id }),
         }
-      });
+      );
 
       if (!response.ok) {
         throw new Error('Failed to unsave course');
       }
 
-      // Remove the course from saved courses
-      setSavedCourses(prev => prev.filter(c => c.id !== course.id));
+      setSavedCourses((prev) => prev.filter((c) => c.id !== course.id));
     } catch (error) {
       console.error('Error unsaving course:', error);
     }
   };
 
   return (
-    <Box sx={{ 
-      ml: '240px', 
-      height: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      bgcolor: '#0f0f0f',
-      color: 'white',
-      overflow: 'hidden',
-      position: 'fixed',
-      top: 0,
-      right: 0,
-      bottom: 0,
-      left: 0
-    }}>
-      {/* Fixed Header Section */}
-      <Box sx={{ 
-        p: 4, 
-        pb: 2,
+    <Box
+      sx={{
+        ml: '240px',
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
         bgcolor: '#0f0f0f',
-        borderBottom: '1px solid #222'
-      }}>
-        <Typography variant="h4" fontWeight="bold" mb={3} color="white">
+        color: 'white',
+        overflow: 'hidden',
+        position: 'fixed',
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+      }}
+    >
+      {/* Header */}
+      <Box sx={{ p: 4, pb: 2, borderBottom: '1px solid #222' }}>
+        <Typography variant="h4" fontWeight="bold" mb={3}>
           Saved Courses
         </Typography>
       </Box>
 
-      {/* Scrollable Course Grid */}
-      <Box sx={{ 
-        flex: 1,
-        overflowY: 'auto',
-        p: 2
-      }}>
+      {/* Content */}
+      <Box sx={{ flex: 1, overflowY: 'auto', p: 2 }}>
         {savedCourses.length === 0 ? (
-          <Box 
-            sx={{ 
-              height: '100%', 
-              display: 'flex', 
+          <Box
+            sx={{
+              height: '100%',
+              display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              justifyContent: 'center'
+              justifyContent: 'center',
             }}
           >
             <Typography variant="h6" color="gray">
               No saved courses yet
             </Typography>
             <Typography variant="body2" color="gray" mt={1}>
-              Save courses from the homepage or discover page to see them here
+              Save courses from the homepage or discover page to see them here.
             </Typography>
           </Box>
         ) : (
           <Grid container spacing={2}>
             {savedCourses.map((course) => (
-              <Grid item xs={12} md={4} key={course.id} sx={{ width: '30%', padding: '8px' }}>
-                <CourseCard 
+              <Grid
+                item
+                xs={12}
+                md={4}
+                key={course.id}
+                sx={{ width: '30%', padding: '8px' }}
+              >
+                <CourseCard
                   course={course}
-                  showSaveButton={true}
-                  onSave={handleUnsaveCourse}
-                  isSaved={true}
+                  showSaveButton
+                  onToggleSave={handleUnsaveCourse}
                 />
               </Grid>
             ))}

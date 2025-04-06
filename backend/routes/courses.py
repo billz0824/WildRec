@@ -60,37 +60,60 @@ def add_or_update_course():
     if not number:
         return jsonify({"error": "Course number is required."}), 400
 
+    # Safely extract radar values (default to 0 if not provided)
+    radar = data.get('radar', {})
+    liked = radar.get('liked', 0)
+    difficulty = radar.get('difficulty', 0)
+    practicality = radar.get('practicality', 0)
+    collaborative = radar.get('collaborative', 0)
+    rewarding = radar.get('rewarding', 0)
+    instruction = radar.get('instruction', 0)
+
+    # Extract top-level fields
+    name = data.get('name')
+    professor = data.get('professor')
+    quote = data.get('slogan')  # maps "slogan" in JSON to "quote" field in DB
+    requirements = data.get('requirements', [])
+    prerequisites = data.get('prerequisites', [])
+    description = data.get('description')
+    content_summary = data.get('content_summary')
+    experience_summary = data.get('experience_summary')
+
     course = Course.query.filter_by(number=number).first()
 
     if course:
-        course.name = data.get('name', course.name)
-        course.professor = data.get('professor', course.professor)
-        course.quote = data.get('quote', course.quote)
-        course.requirements = data.get('requirements', course.requirements)
-        course.prerequisites = data.get('prerequisites', course.prerequisites)
-        course.description = data.get('description', course.description)
-        course.liked = data.get('liked', course.liked)
-        course.difficulty = data.get('difficulty', course.difficulty)
-        course.practicality = data.get('practicality', course.practicality)
-        course.collaborative = data.get('collaborative', course.collaborative)
-        course.rewarding = data.get('rewarding', course.rewarding)
-        course.instruction = data.get('instruction', course.instruction)
+        course.name = name or course.name
+        course.professor = professor or course.professor
+        course.quote = quote or course.quote
+        course.requirements = requirements or course.requirements
+        course.prerequisites = prerequisites or course.prerequisites
+        course.description = description or course.description
+        course.liked = liked
+        course.difficulty = difficulty
+        course.practicality = practicality
+        course.collaborative = collaborative
+        course.rewarding = rewarding
+        course.instruction = instruction
+        course.content_summary = content_summary or course.content_summary
+        course.experience_summary = experience_summary or course.experience_summary
         msg = "Course updated."
     else:
         course = Course(
             number=number,
-            name=data.get('name'),
-            professor=data.get('professor'),
-            quote=data.get('quote'),
-            requirements=data.get('requirements', []),
-            prerequisites=data.get('prerequisites', []),
-            description=data.get('description'),
-            liked=data.get('liked', 0),
-            difficulty=data.get('difficulty', 0),
-            practicality=data.get('practicality', 0),
-            collaborative=data.get('collaborative', 0),
-            rewarding=data.get('rewarding', 0),
-            instruction=data.get('instruction', 0)
+            name=name,
+            professor=professor,
+            quote=quote,
+            requirements=requirements,
+            prerequisites=prerequisites,
+            description=description,
+            liked=liked,
+            difficulty=difficulty,
+            practicality=practicality,
+            collaborative=collaborative,
+            rewarding=rewarding,
+            instruction=instruction,
+            content_summary=content_summary,
+            experience_summary=experience_summary
         )
         db.session.add(course)
         msg = "Course created."
