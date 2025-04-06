@@ -31,7 +31,7 @@ def recommend(user, courses, course_graph, method="preference", top_n=3):
 
     user_preference = generate_user_preference_summary(user, courses)
     # print(f"User Preference: {user_preference}")
-    
+
     user_embedding = recommender.onboard_user(user_preference)
     user_recommendations = recommender.recommend_for_user(user_embedding, top_n=top_n)
     
@@ -39,8 +39,8 @@ def recommend(user, courses, course_graph, method="preference", top_n=3):
     return user_recommendations
 
 def rank(user, course):
-    user_preferences = [user[s] for s in ["liked", "difficulty", "practicality", "collaborative", "rewarding", "instruction"]]
-    course_attributes = [course[s] for s in ["liked", "difficulty", "practicality", "collaborative", "rewarding", "instruction"]]
+    user_preferences = [user["radar"][s] for s in ["liked", "difficulty", "practicality", "collaborative", "rewarding", "instruction"]]
+    course_attributes = [course["radar"][s] for s in ["liked", "difficulty", "practicality", "collaborative", "rewarding", "instruction"]]
     rank_a = sum([a[0]*a[1] for a in zip(user_preferences, course_attributes)])
     return rank_a
 
@@ -56,10 +56,10 @@ def merge(user, courses, course_graph, top_n=3):
     combined_scores = {}
 
     for course in by_major:
-        combined_scores[course["course_number"]] = max((combined_scores.get(course["course_number"], 0) + rank(user, course)), combined_scores.get(course["course_number"], 0))
+        combined_scores[course["number"]] = max((combined_scores.get(course["number"], 0) + rank(user, course)), combined_scores.get(course["number"], 0))
 
     for course in by_preference:
-        combined_scores[course["course_number"]] = max((combined_scores.get(course["course_number"], 0) + rank(user, course)), combined_scores.get(course["course_number"], 0))
+        combined_scores[course["number"]] = max((combined_scores.get(course["number"], 0) + rank(user, course)), combined_scores.get(course["number"], 0))
 
     
     merged = sorted(combined_scores.keys(), key=lambda x: combined_scores.get(x), reverse=True)
