@@ -42,6 +42,18 @@ def run():
         output_data["content_summary"] = content_summary
         output_data["experience_summary"] = experience_summary
 
+        course_code, course_name = output_data["course_name"].split(": ", 1)
+
+        # Extract the department and course number
+        parts = course_code.split("_")  # ['MATH', '218-1', '71']
+        department = parts[0]
+        number = parts[1].split("-")[0]  # Extract '218' from '218-1'
+
+        course_number = f"{department} {number}"
+
+        output_data["course_number"] = course_number
+        output_data["course_name"] = course_name
+
         filename = os.path.splitext(os.path.basename(file_path))[0]
         output_path = os.path.join(CFG.OUTPUT_DIR, f"{filename}.json")
 

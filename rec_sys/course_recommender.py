@@ -36,8 +36,8 @@ class CourseRecommender:
         
         # Generate embeddings for all courses
         for course in self.courses:
-            content_embedding = self._get_embedding(course['content'])
-            experience_embedding = self._get_embedding(course['experience'])
+            content_embedding = self._get_embedding(course['content_summary'])
+            experience_embedding = self._get_embedding(course['experience_summary'])
             
             self.content_embeddings.append(content_embedding)
             self.experience_embeddings.append(experience_embedding)
