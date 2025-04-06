@@ -30,7 +30,7 @@ def generate_user_preference_summary(user_info, courses, delay=5):
     # Reformat ratings into descriptive text
     preference_order = sorted(
         ["liked", "difficulty", "practicality", "collaborative", "rewarding", "instruction"],
-        key=lambda x: -user_info[x]
+        key=lambda x: -user_info["radar"][x]
     )
     preference_text = ", ".join(preference_order[:3])
 
@@ -58,7 +58,7 @@ def generate_user_preference_summary(user_info, courses, delay=5):
         model = genai.GenerativeModel("gemini-1.5-flash")
         response = model.generate_content(prompt)
         time.sleep(delay)
-        print(f"User preference: {response.text}")
+        # print(f"User preference: {response.text}")
         return response.text.strip()
     except Exception as e:
         return f"Gemini Error: {e}"

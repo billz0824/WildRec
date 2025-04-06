@@ -48,7 +48,7 @@ class CourseRecommender:
         self.experience_embeddings = np.array(self.experience_embeddings)
         self.combined_embeddings = np.array(self.combined_embeddings)
         
-        print(f"Loaded {len(self.courses)} courses with embeddings")
+        # print(f"Loaded {len(self.courses)} courses with embeddings")
     
     def _get_embedding(self, text):
         """Get embedding for text using OpenAI ada-002 model."""

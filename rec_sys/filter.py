@@ -28,7 +28,7 @@ def filter_taken(user, courses, course_graph):
     allowed = []
     for n in numbers:
         allowed.append(get_course(n, courses))
-    print(numbers)
+    # print(numbers)
     return allowed
 
 #############################################################

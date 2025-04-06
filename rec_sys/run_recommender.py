@@ -13,7 +13,7 @@ def recommend(user, courses, course_graph, method="preference", top_n=3):
     load_dotenv()
     api_key = os.getenv('OPENAI_API_KEY')
     if not api_key:
-        print("Error: OPENAI_API_KEY not found in .env file")
+        # print("Error: OPENAI_API_KEY not found in .env file")
         return
     
     # Initialize the recommender
