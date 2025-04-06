@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RadarChart from './RadarChart';
 import { Card, CardContent, Typography, Box, IconButton, Chip, Tooltip, Avatar } from '@mui/material';
-import { FaBookmark, FaRegBookmark, FaUser } from 'react-icons/fa';
+import { FaBookmark, FaRegBookmark, FaGraduationCap } from 'react-icons/fa';
 
-const CourseCard = ({ course, showSaveButton = false, onSave, isSaved = false }) => {
+const CourseCard = ({ course, showSaveButton = false, onSave, isSaved = false, layout = 'grid' }) => {
   const navigate = useNavigate();
   const [isCourseSaved, setIsSaved] = useState(isSaved);
 
   const handleProfileClick = () => {
-    navigate(`/course/${course.id}`);
+    navigate(`/courseprofile/${course.id}`);
   };
 
   const handleSaveClick = async () => {
@@ -26,6 +26,19 @@ const CourseCard = ({ course, showSaveButton = false, onSave, isSaved = false })
   // Split requirements into an array
   const requirementTags = course.requirements.split(', ');
 
+  const cardStyles = {
+    grid: {
+      height: 600,
+      width: '100%'
+    },
+    discover: {
+      width: '100%',
+      height: '100%' // Allow it to fill container height
+    }
+  };
+
+  const selectedStyle = cardStyles[layout] || cardStyles.grid;
+
   return (
     <Card sx={{ 
       bgcolor: '#1e1e1e', 
@@ -33,7 +46,7 @@ const CourseCard = ({ course, showSaveButton = false, onSave, isSaved = false })
       borderRadius: 2,
       position: 'relative',
       width: '100%',
-      height: 600, // Adjusted fixed height
+      height: layout === 'discover' ? '100%' : 600,
       '&:hover': {
         boxShadow: '0 0 10px rgba(168, 85, 247, 0.2)'
       }
@@ -42,29 +55,56 @@ const CourseCard = ({ course, showSaveButton = false, onSave, isSaved = false })
         height: '100%', 
         display: 'flex', 
         flexDirection: 'column',
-        p: 2,
-        '&:last-child': { pb: 2 } // Override Material-UI's default padding
+        p: layout === 'discover' ? 3 : 2,
+        gap: layout === 'discover' ? 3 : 1,
+        '&:last-child': { pb: layout === 'discover' ? 3 : 2 }
       }}>
-        {/* Header - Fixed Height */}
-        <Box display="flex" justifyContent="space-between" alignItems="flex-start" height="80px">
+        {/* Header */}
+        <Box 
+          display="flex" 
+          justifyContent="space-between" 
+          alignItems="flex-start" 
+          height={layout === 'discover' ? "auto" : "80px"}
+          mb={layout === 'discover' ? 2 : 0}
+        >
           <Box>
-            <Typography variant="subtitle2" sx={{ color: '#a855f7', fontSize: '0.8rem' }}>{course.number}</Typography>
-            <Typography variant="h6" sx={{ fontSize: '1rem', fontWeight: 'bold', lineHeight: 1.2 }}>{course.name}</Typography>
-            <Typography variant="caption" color="gray" sx={{ fontSize: '0.75rem' }}>Instructor: {course.professor}</Typography>
+            <Typography variant="subtitle2" sx={{ 
+              color: '#a855f7', 
+              fontSize: layout === 'discover' ? '1rem' : '0.8rem' 
+            }}>
+              {course.number}
+            </Typography>
+            <Typography variant="h6" sx={{ 
+              fontSize: layout === 'discover' ? '1.5rem' : '1rem',
+              fontWeight: 'bold',
+              lineHeight: 1.2,
+              mt: 0.5
+            }}>
+              {course.name}
+            </Typography>
+            <Typography variant="caption" color="gray" sx={{ 
+              fontSize: layout === 'discover' ? '0.9rem' : '0.75rem',
+              display: 'block',
+              mt: 1
+            }}>
+              Instructor: {course.professor}
+            </Typography>
           </Box>
-          <Box textAlign="center">
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
             <Tooltip title="Go to course profile">
               <Avatar 
                 sx={{ 
                   bgcolor: '#333', 
                   cursor: 'pointer',
-                  width: 32,
-                  height: 32,
-                  mb: showSaveButton ? 0.5 : 0
+                  width: layout === 'discover' ? 40 : 32,
+                  height: layout === 'discover' ? 40 : 32,
+                  '&:hover': {
+                    bgcolor: '#444'
+                  }
                 }} 
                 onClick={handleProfileClick}
               >
-                <FaUser size={16} />
+                <FaGraduationCap size={layout === 'discover' ? 20 : 16} />
               </Avatar>
             </Tooltip>
             {showSaveButton && (
@@ -79,7 +119,10 @@ const CourseCard = ({ course, showSaveButton = false, onSave, isSaved = false })
                     }
                   }}
                 >
-                  {isCourseSaved ? <FaBookmark size={14} /> : <FaRegBookmark size={14} />}
+                  {isCourseSaved ? 
+                    <FaBookmark size={layout === 'discover' ? 18 : 14} /> : 
+                    <FaRegBookmark size={layout === 'discover' ? 18 : 14} />
+                  }
                 </IconButton>
               </Tooltip>
             )}

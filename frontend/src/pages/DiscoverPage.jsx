@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CourseCard from '../components/CourseCard';
-import { Box, IconButton, Typography, Avatar } from '@mui/material';
-import { FaHeart } from 'react-icons/fa';
+import { Box, IconButton, Typography, Avatar, Card, CardContent, Tooltip } from '@mui/material';
+import { FaHeart, FaRegHeart, FaChevronUp, FaChevronDown, FaGraduationCap } from 'react-icons/fa';
 
 const sampleFeed = [
   {
@@ -49,11 +50,136 @@ const sampleFeed = [
   }
 ];
 
+const PostCard = ({ post }) => {
+  const navigate = useNavigate();
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(post.likes || 0);
+
+  const handleLike = () => {
+    setIsLiked(!isLiked);
+    setLikeCount(prev => isLiked ? prev - 1 : prev + 1);
+  };
+
+  const handleCourseProfileClick = () => {
+    navigate(`/course/${post.courseId}`);
+  };
+
+  return (
+    <Card sx={{ 
+      bgcolor: '#1e1e1e', 
+      color: 'white', 
+      borderRadius: 2,
+      width: '100%',
+      height: '100%',
+      '&:hover': {
+        boxShadow: '0 0 10px rgba(168, 85, 247, 0.2)'
+      }
+    }}>
+      <CardContent sx={{ 
+        height: '100%', 
+        display: 'flex', 
+        flexDirection: 'column',
+        p: 3,
+        gap: 3
+      }}>
+        {/* Header */}
+        <Box 
+          display="flex" 
+          justifyContent="space-between" 
+          alignItems="flex-start"
+          mb={2}
+        >
+          <Box>
+            <Typography variant="subtitle2" sx={{ 
+              color: '#a855f7', 
+              fontSize: '1rem'
+            }}>
+              {post.courseName}
+            </Typography>
+            <Typography variant="h6" sx={{ 
+              fontSize: '1.5rem',
+              fontWeight: 'bold',
+              lineHeight: 1.2,
+              mt: 0.5
+            }}>
+              {post.content}
+            </Typography>
+ 
+          </Box>
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+            <Tooltip title="Go to course profile">
+              <Avatar 
+                sx={{ 
+                  bgcolor: '#333', 
+                  cursor: 'pointer',
+                  width: 40,
+                  height: 40,
+                  '&:hover': {
+                    bgcolor: '#444'
+                  }
+                }} 
+                onClick={handleCourseProfileClick}
+              >
+                <FaGraduationCap size={20} />
+              </Avatar>
+            </Tooltip>
+            <Tooltip title={isLiked ? "Unlike" : "Like"}>
+              <IconButton 
+                onClick={handleLike}
+                sx={{ 
+                  color: isLiked ? '#a855f7' : 'white',
+                  '&:hover': {
+                    color: '#a855f7'
+                  }
+                }}
+              >
+                {isLiked ? <FaHeart size={18} /> : <FaRegHeart size={18} />}
+                <Typography variant="caption" sx={{ ml: 1 }}>{likeCount}</Typography>
+              </IconButton>
+            </Tooltip>
+          </Box>
+        </Box>
+
+        {/* Content */}
+        <Box 
+          sx={{ 
+            flex: 1,
+            width: '100%',
+            borderRadius: 2,
+            overflow: 'hidden',
+            position: 'relative'
+          }}
+        >
+          <img 
+            src={post.thumbnail} 
+            alt="Post content"
+            style={{ 
+              width: '100%', 
+              height: '100%', 
+              objectFit: 'cover',
+              borderRadius: 8
+            }}
+          />
+        </Box>
+      </CardContent>
+    </Card>
+  );
+};
+
 const DiscoverPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [feed, setFeed] = useState(sampleFeed);
+  const [isScrolling, setIsScrolling] = useState(false);
 
   const handleScroll = (e) => {
+    if (isScrolling) return;
+
+    setIsScrolling(true);
+    setTimeout(() => setIsScrolling(false), 500);
+
+    const scrollThreshold = 50;
+    if (Math.abs(e.deltaY) < scrollThreshold) return;
+
     if (e.deltaY > 0 && currentIndex < feed.length - 1) {
       setCurrentIndex(prev => prev + 1);
     } else if (e.deltaY < 0 && currentIndex > 0) {
@@ -61,7 +187,15 @@ const DiscoverPage = () => {
     }
   };
 
-  const handleLike = (id) => {
+  const handleScrollClick = (direction) => {
+    if (direction === 'up' && currentIndex > 0) {
+      setCurrentIndex(prev => prev - 1);
+    } else if (direction === 'down' && currentIndex < feed.length - 1) {
+      setCurrentIndex(prev => prev + 1);
+    }
+  };
+
+  const handleLike = async (id) => {
     setFeed(prev => prev.map(item => 
       item.id === id ? { ...item, likes: (item.likes || 0) + 1 } : item
     ));
@@ -85,8 +219,6 @@ const DiscoverPage = () => {
     }
   };
 
-  const currentItem = feed[currentIndex];
-
   return (
     <Box 
       sx={{ 
@@ -98,14 +230,66 @@ const DiscoverPage = () => {
         top: 0,
         right: 0,
         bottom: 0,
-        left: '240px', // Account for sidebar
+        left: '240px',
       }}
       onWheel={handleScroll}
     >
+      {/* Scroll Indicators */}
+      <Box
+        sx={{
+          position: 'fixed',
+          right: 32,
+          top: '50%',
+          transform: 'translateY(-50%)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+          zIndex: 10
+        }}
+      >
+        <IconButton
+          onClick={() => handleScrollClick('up')}
+          disabled={currentIndex === 0}
+          sx={{
+            color: currentIndex === 0 ? 'gray' : 'white',
+            bgcolor: 'rgba(0,0,0,0.5)',
+            '&:hover': {
+              bgcolor: 'rgba(168, 85, 247, 0.2)',
+              color: '#a855f7'
+            }
+          }}
+        >
+          <FaChevronUp />
+        </IconButton>
+        <Typography 
+          variant="body2" 
+          sx={{ 
+            textAlign: 'center',
+            color: 'gray'
+          }}
+        >
+          {currentIndex + 1}/{feed.length}
+        </Typography>
+        <IconButton
+          onClick={() => handleScrollClick('down')}
+          disabled={currentIndex === feed.length - 1}
+          sx={{
+            color: currentIndex === feed.length - 1 ? 'gray' : 'white',
+            bgcolor: 'rgba(0,0,0,0.5)',
+            '&:hover': {
+              bgcolor: 'rgba(168, 85, 247, 0.2)',
+              color: '#a855f7'
+            }
+          }}
+        >
+          <FaChevronDown />
+        </IconButton>
+      </Box>
+
       <Box
         sx={{
           height: '100%',
-          transition: 'transform 0.3s ease',
+          transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
           transform: `translateY(-${currentIndex * 100}%)`,
         }}
       >
@@ -120,83 +304,24 @@ const DiscoverPage = () => {
               position: 'relative',
             }}
           >
-            {item.type === 'course' ? (
-              <Box sx={{ width: '100%', maxWidth: '600px', p: 2 }}>
+            <Box sx={{ 
+              width: '100%', 
+              maxWidth: '600px',
+              height: '90vh',
+              display: 'flex',
+              p: 3
+            }}>
+              {item.type === 'course' ? (
                 <CourseCard 
                   course={item} 
                   showSaveButton={true}
                   onSave={handleSave}
+                  layout="discover"
                 />
-              </Box>
-            ) : (
-              <Box 
-                sx={{ 
-                  width: '100%',
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  position: 'relative',
-                }}
-              >
-                {/* Video or Image Content */}
-                <Box 
-                  sx={{ 
-                    width: '100%',
-                    maxWidth: '400px',
-                    height: '80vh',
-                    bgcolor: '#1e1e1e',
-                    borderRadius: 2,
-                    overflow: 'hidden',
-                  }}
-                >
-                  <img 
-                    src={item.thumbnail} 
-                    alt="Post content"
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
-                </Box>
-
-                {/* Post Info */}
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    bottom: '10%',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    width: '100%',
-                    maxWidth: '400px',
-                    p: 2,
-                  }}
-                >
-                  <Typography variant="h6">{item.courseName}</Typography>
-                  <Typography variant="body1">{item.content}</Typography>
-                  <Box sx={{ mt: 2, display: 'flex', alignItems: 'center', gap: 2 }}>
-                    <Avatar>{item.author[0]}</Avatar>
-                    <Typography variant="subtitle1">{item.author}</Typography>
-                  </Box>
-                </Box>
-
-                {/* Interaction Buttons */}
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    right: '10%',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 2,
-                  }}
-                >
-                  <IconButton onClick={() => handleLike(item.id)} sx={{ color: 'white' }}>
-                    <FaHeart />
-                    <Typography variant="caption" sx={{ ml: 1 }}>{item.likes}</Typography>
-                  </IconButton>
-                </Box>
-              </Box>
-            )}
+              ) : (
+                <PostCard post={item} />
+              )}
+            </Box>
           </Box>
         ))}
       </Box>

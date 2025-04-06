@@ -1,39 +1,38 @@
 Web Search Results for 'Econ 310-1':
 
-## Detailed Overview of ECON 310-1: Microeconomics
+Here's the updated information on Northwestern University's course 'Econ 310-1: Microeconomics':
 
-ECON 310-1 at Northwestern University is an advanced microeconomics course designed for economics majors and minors. It builds upon foundational concepts covered in ECON 202 (Introduction to Microeconomics) and delves deeper into the behavior of consumers and producers in market economies, using mathematical models to analyze market structures such as competition, monopoly, and monopsony[1][2][3].
+## Course Overview
+ECON 310-1 is an intermediate microeconomics course designed for economics majors and minors. It builds upon the foundational material covered in ECON 202, focusing on the development and application of economic theory using mathematical models. The course analyzes the behavior of optimizing consumers and producers in market economies, covering topics such as equilibrium analysis and comparative statics[1][2][3].
 
-### Key Topics and Concepts Covered
+## Key Topics and Concepts
+- **Supply and Demand Curves**: Analyzing equilibrium and resource allocation, along with the effects of government intervention[1][2].
+- **Consumer Theory**: Deriving demand curves and evaluating consumer welfare changes due to price shifts[2][3].
+- **Producer Theory**: Analyzing production functions, cost curves, and supply curves[1][3].
+- **Market Structures**: Understanding competitive, monopoly, and monopsony markets[1][2].
 
-- **Market Equilibrium:** The course focuses on using supply and demand curves to analyze equilibrium and the effects of government interventions in competitive markets[1][4].
-- **Consumer Theory:** Students learn to derive demand curves and analyze consumer welfare changes due to price shifts[4].
-- **Producer Theory:** Emphasis is placed on understanding production functions, cost curves, and supply curves to characterize firm behavior[4].
-- **Market Structures:** Analysis of market outcomes in perfect competition, monopoly, and monopsony settings[3][4].
-- **Comparative Statics and Equilibrium Analysis:** These tools are used to model and analyze economic problems[1][3].
+## Learning Objectives
+By completing this course, students will be able to:
+1. **Analyze Equilibrium and Resource Allocation**: Use supply and demand curves to understand markets and government intervention[1][2].
+2. **Apply Consumer Theory**: Derive demand curves and assess consumer welfare changes[2][3].
+3. **Understand Producer Behavior**: Analyze production functions and cost curves for firms[1][3].
+4. **Compare Market Structures**: Evaluate market outcomes in different structures[3].
 
-### Learning Objectives
+## Typical Assignments or Projects
+The course includes:
+- **Weekly Problem Sets**: Due each Monday[1][2].
+- **Exams**: There are four exams; the final is cumulative[1][2].
 
-After completing this course, students will be able to:
-1. **Analyze Market Equilibrium:** Use supply and demand curves to study equilibrium and government interventions[1][4].
-2. **Characterize Consumer Behavior:** Derive demand curves and assess welfare changes due to price shifts[4].
-3. **Describe Firm Behavior:** Analyze production functions, cost curves, and supply curves for firms[4].
-4. **Compare Market Structures:** Understand market outcomes in different competitive environments[3][4].
+## Required Textbook
+For one version of the course, the recommended textbook is "Microeconomics" by Besanko and Braeutigam (6th edition), though other intermediate micro textbooks can be used for reference[4].
 
-Additional goals include developing numeracy, improving problem-solving skills, and applying economic theory to real-world issues[1][2].
+## Syllabus Information
+**Prerequisites**: Completion of ECON 201, ECON 202, and MATH 220-1 (or equivalents)[1][2][3].
+**Assessment**: Course grade based on problem sets (60 points) and four exams, with the best three exams counted towards the final grade[1][2]. 
+**Course Duration and Schedule**: Typically involves three lectures and a discussion section per week[3]. 
 
-### Typical Assignments or Projects
-
-- **Weekly Problem Sets:** Due on Mondays, with the option to drop the two lowest scores[2][4].
-- **Exams:** Four exams, including a cumulative final, that test theoretical application and understanding[2][4].
-- No calculators are allowed on exams to emphasize basic arithmetic operations[1][4].
-
-### Required Textbooks
-
-The specific textbook is not mentioned in the available syllabi. However, it's common for such courses to use textbooks like "Microeconomics" by Gregory Mankiw or similar advanced microeconomics texts.
-
-### Syllabus Information
-
-- **Prerequisites:** ECON 201 (Introduction to Macroeconomics), ECON 202 (Introduction to Microeconomics), and MATH 220-1 (Differential Calculus)[1][2][3].
-- **Meeting Time:** Typically meets Monday, Wednesday, Friday at 10:00 AM - 10:50 AM[3].
-- **Evaluation:** Based on four exams and weekly problem sets. Exams account for 420 points, and problem sets account for 60 points[2][4].
+Citations are from the following sources:
+[1] https://economics.northwestern.edu/docs/past-syllabi/fall22/fall-2022-econ-310-1-syllabus-hornsten.pdf  
+[2] https://economics.northwestern.edu/undergraduate/courses-curriculum/past-syllabi/f23econ310-1hornsten.pdf  
+[3] https://class-descriptions.northwestern.edu/4920/WCAS/ECON/15877  
+[4] https://economics.northwestern.edu/undergraduate/courses-curriculum/past-syllabi/sinitsyn-econ-310.pdf

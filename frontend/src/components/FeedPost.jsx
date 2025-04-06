@@ -12,15 +12,7 @@ const FeedPost = ({ post }) => {
   return (
     <div className="bg-zinc-900 text-white max-w-xl w-full rounded-lg overflow-hidden shadow-md mb-8">
       {/* Profile Header */}
-      <div className="flex items-center gap-3 p-4">
-        <img
-          src={post.profileImage}
-          alt="profile"
-          className="h-10 w-10 rounded-full cursor-pointer"
-          onClick={handleProfileClick}
-        />
-        <span className="text-sm font-semibold">Anonymous</span>
-      </div>
+
 
       {/* Post Image */}
       <img
