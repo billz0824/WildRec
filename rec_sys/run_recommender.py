@@ -3,13 +3,12 @@ from dotenv import load_dotenv
 from course_recommender import CourseRecommender
 from sample_data import COURSES, SAMPLE_USER
 from filter import filter_taken, filter_major
-from generate_preferences import generate_user_preference_summary
+from generate_preferences import generate_user_preference_summary, get_course
 from digraph import build_course_graph
-from sample_data import get_course
 
 
 
-def recommend(user, course_graph, method="preference", top_n=3):
+def recommend(user, courses, course_graph, method="preference", top_n=3):
 
     load_dotenv()
     api_key = os.getenv('OPENAI_API_KEY')
@@ -21,16 +20,18 @@ def recommend(user, course_graph, method="preference", top_n=3):
     recommender = CourseRecommender(api_key)
 
     # preliminary filtering
-    courses = filter_taken(user, course_graph)
+    allowed = filter_taken(user, courses, course_graph)
 
     # if recommending by major
     if method == "major":
         # filter by major
-        courses = filter_major(user["major"], courses)
+        allowed = filter_major(user["major"], allowed)
     
-    recommender.load_courses(courses)
+    recommender.load_courses(allowed)
 
-    user_preference = generate_user_preference_summary(user)
+    user_preference = generate_user_preference_summary(user, courses)
+    # print(f"User Preference: {user_preference}")
+    
     user_embedding = recommender.onboard_user(user_preference)
     user_recommendations = recommender.recommend_for_user(user_embedding, top_n=top_n)
     
@@ -48,9 +49,9 @@ def re_rank(user, courses):
     return courses
 
 
-def merge(user, course_graph, top_n=3):
-    by_major = re_rank(user, recommend(user, course_graph, method="major", top_n=top_n))
-    by_preference = re_rank(user, recommend(user, course_graph, method="preference", top_n=top_n))
+def merge(user, courses, course_graph, top_n=3):
+    by_major = re_rank(user, recommend(user, courses, course_graph, method="major", top_n=top_n))
+    by_preference = re_rank(user, recommend(user, courses, course_graph, method="preference", top_n=top_n))
 
     combined_scores = {}
 
@@ -62,10 +63,11 @@ def merge(user, course_graph, top_n=3):
 
     
     merged = sorted(combined_scores.keys(), key=lambda x: combined_scores.get(x), reverse=True)
+    # print(f"Recommended Courses: {merged}")
 
-    return [get_course(course) for course in merged[:top_n]]
+    return [get_course(course, courses) for course in merged[:top_n]]
 
 if __name__ == "__main__":
-    merge(SAMPLE_USER, build_course_graph(COURSES), top_n=3)
+    merge(SAMPLE_USER, COURSES, build_course_graph(COURSES), top_n=3)
 
     

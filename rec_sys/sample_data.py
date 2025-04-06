@@ -82,7 +82,7 @@ SAMPLE_USER = {
         "top_classes": ["MATH 218"]
     }
 
-def get_course(number):
-    for i in COURSES:
+def get_course(number, courses):
+    for i in courses:
         if i["course_number"] == number:
             return i

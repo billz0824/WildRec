@@ -1,14 +1,6 @@
-# import sys
-# import os
-
-
-# parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-# sys.path.append(parent_dir)
-
-
-# from backend import models
 import networkx as nx
-from sample_data import get_course
+from generate_preferences import get_course
+
 
 
 
@@ -28,16 +20,16 @@ def remove_node_and_predecessors(G, target_node):
 # This defines a function that filters out all previously taken courses #
 #########################################################################
 
-def filter_taken(user, course_graph):
+def filter_taken(user, courses, course_graph):
     taken_numbers = user['past_classes']
     for t in taken_numbers:
         course_graph = remove_node_and_predecessors(course_graph, t)
     numbers = list(course_graph.nodes)
-    courses = []
+    allowed = []
     for n in numbers:
-        courses.append(get_course(n))
+        allowed.append(get_course(n, courses))
     print(numbers)
-    return courses
+    return allowed
 
 #############################################################
 # This defines a function that filters out courses by major #

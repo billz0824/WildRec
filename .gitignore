@@ -177,6 +177,7 @@ cython_debug/
 
 # Info
 info.py
+sample_data.py
 
 # Data
 html_reports/
@@ -185,4 +186,4 @@ parsed_reports/
 text_reports/
 numerical_reports/
 final_reports/
-rec_sys/sample_data.py
+

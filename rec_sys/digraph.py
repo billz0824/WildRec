@@ -6,7 +6,7 @@ def build_course_graph(courses):
     # Add each course as a node (the Course object itself)
     for course in courses:
         G.add_node(course["course_number"])
-        print(f"Added: {course['course_number']}")
+        # print(f"Added {course['course_number']} to graph!")
 
     for course in courses:
         for prereq_number in course["prerequisites"]:

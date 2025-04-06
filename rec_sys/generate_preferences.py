@@ -2,15 +2,6 @@ import time
 import google.generativeai as genai
 from info import API_KEY
 
-# import sys
-# import os
-
-
-# parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-# sys.path.append(parent_dir)
-
-# from backend import routes
-from sample_data import get_course
 
 
 class CFG:
@@ -21,12 +12,20 @@ class CFG:
 
 genai.configure(api_key=CFG.GENAI_API_KEY)
 
+#############################################
+# This funtion finds course based on Number #
+#############################################
+
+def get_course(number, courses):
+    for i in courses:
+        if i["course_number"] == number:
+            return i
 
 ###############################################################
 # This function generates user preferences based on user info #
 ###############################################################
 
-def generate_user_preference_summary(user_info, delay=5):
+def generate_user_preference_summary(user_info, courses, delay=5):
 
     # Reformat ratings into descriptive text
     preference_order = sorted(
@@ -36,7 +35,7 @@ def generate_user_preference_summary(user_info, delay=5):
     preference_text = ", ".join(preference_order[:3])
 
     top_classes = user_info["top_classes"]
-    top_classes_description = ", ".join([get_course(t)['content_summary'] for t in top_classes])
+    top_classes_description = ", ".join([get_course(t, courses)['content_summary'] for t in top_classes])
 
     # Create the prompt
     prompt = f"""
