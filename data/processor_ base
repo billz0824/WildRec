@@ -16,7 +16,7 @@ class CFG:
     GENAI_API_KEY = API_KEY
     INPUT_FOLDER = "data/html_reports"
     OUTPUT_FOLDER = "data/parsed_base_reports"
-    LIMIT = 5
+    LIMIT = None
     # FACTORS = {
     #     "Table for 1. Provide an overall rating of the instruction.-1. Provide an overall rating of the instruction.-Statistics.": "Instruction Rating",
     #     "Table for 2. Provide an overall rating of the course.-1. Provide an overall rating of the course.-Statistics.": "Course Rating",

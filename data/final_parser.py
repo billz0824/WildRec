@@ -18,7 +18,7 @@ class CFG:
     GENAI_API_KEY = API_KEY
     INPUT_DIR = "data/parsed_reports"
     OUTPUT_DIR = "data/final_reports"
-    LIMIT = 5
+    LIMIT = 50
 
 genai.configure(api_key=CFG.GENAI_API_KEY)
 
