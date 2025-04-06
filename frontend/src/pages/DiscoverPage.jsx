@@ -1,53 +1,43 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Box, Typography, Avatar } from '@mui/material';
 import { FaGraduationCap } from 'react-icons/fa';
 import FeedPost from '../components/FeedPost';
-
-const sampleFeed = [
-  {
-    id: 1,
-    title: "Understanding Demand in Transportation Economics",
-    description: "An introduction to the fundamental concepts of demand analysis in transportation economics.",
-    videoUrl: "/videos/topic_1_understanding_demand_in_transportation_economics.mp4",
-    thumbnail: "/thumbnails/topic_1.jpg",
-    likes: 45,
-    author: "Transportation Economics Team"
-  },
-  {
-    id: 2,
-    title: "Examining Cost Structures in Transportation Modes",
-    description: "Deep dive into the various cost structures that affect different transportation modes.",
-    videoUrl: "/videos/topic_2_examining_cost_structures_in_transportation_modes.mp4",
-    thumbnail: "/thumbnails/topic_2.jpg",
-    likes: 38,
-    author: "Transportation Economics Team"
-  },
-  {
-    id: 3,
-    title: "Optimal Pricing Strategies for Transport Services",
-    description: "Analysis of pricing strategies and their impact on transportation service providers.",
-    videoUrl: "/videos/topic_3_optimal_pricing_strategies_for_transport_services.mp4",
-    thumbnail: "/thumbnails/topic_3.jpg",
-    likes: 52,
-    author: "Transportation Economics Team"
-  },
-  {
-    id: 4,
-    title: "Introduction to Transportation Economics",
-    description: "A comprehensive overview of transportation economics and its key concepts.",
-    videoUrl: "/videos/topic_1_introduction_to__detailed_overview_of_course_content.mp4",
-    thumbnail: "/thumbnails/topic_4.jpg",
-    likes: 67,
-    author: "Transportation Economics Team"
-  }
-];
+import axios from 'axios';
 
 const DiscoverPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [feed] = useState(sampleFeed);
+  const [feed, setFeed] = useState([]);
   const containerRef = useRef(null);
   const touchStartY = useRef(0);
   const isScrollingRef = useRef(false);
+
+  const userId = 1; // change this dynamically later if needed
+
+  useEffect(() => {
+    const fetchFeed = async () => {
+      try {
+        const response = await axios.get(`/get_bits/${userId}`);
+        const data = response.data;
+
+        // Optional: convert into expected format
+        const formatted = data.map((bit) => ({
+          id: bit.id,
+          title: bit.content_type || 'Course Content',
+          description: bit.content,
+          videoUrl: bit.media || '',
+          thumbnail: '', // add if available in your API
+          likes: 0, // placeholder if not returned
+          author: 'Course Team', // placeholder if not returned
+        }));
+
+        setFeed(formatted);
+      } catch (error) {
+        console.error("Error fetching bits:", error);
+      }
+    };
+
+    fetchFeed();
+  }, []);
 
   const handleScroll = (e) => {
     if (isScrollingRef.current) return;

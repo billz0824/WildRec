@@ -110,7 +110,7 @@ const HomePage = () => {
         borderBottom: '1px solid #222'
       }}>
         <Typography variant="h4" fontWeight="bold" mb={3}>
-          All Courses
+          For You
         </Typography>
         <TextField
           variant="outlined"
@@ -129,8 +129,10 @@ const HomePage = () => {
               '&:hover fieldset': { borderColor: '#888' },
             }}}
         />
-      </Box>
 
+      </Box>
+      
+      <text></text>
       {/* Course List */}
       <Box sx={{ 
         flex: 1,

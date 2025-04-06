@@ -10,8 +10,11 @@ bits_bp = Blueprint('bits', __name__, url_prefix='/api/bits')
 def get_bits_by_user(user_id):
     user = User.query.get_or_404(user_id)
 
-    # TODO: Implement logic to fetch bits for the user
     bits = []
+    courses = user.saved_courses
+    for course in courses:
+        result = get_bits_for_course(course.id)
+        bits.append(result)
 
     result = []
     for bit in bits:
