@@ -96,3 +96,62 @@ def create_user():
     db.session.commit()
 
     return jsonify({"message": "User created successfully", "user_id": user.id}), 201
+
+@users_bp.route('/<int:user_id>/embedding_data', methods=['GET'])
+def get_embedding_data(user_id):
+    user = User.query.get_or_404(user_id)
+    
+    # Get list of course numbers the user has already taken
+    past_course_numbers = user.past_classes or []
+
+    # Filter out courses the user already took
+    available_courses = Course.query.filter(~Course.number.in_(past_course_numbers)).all()
+
+    # Structure user data
+    user_data = {
+        "user_id": user.id,
+        "email": user.email,
+        "username": user.username,
+        "major": user.major,
+        "goal_description": user.goal_description,
+        "past_classes": user.past_classes,
+        "top_classes": user.top_classes,
+        "radar": {
+            "liked": user.liked,
+            "difficulty": user.difficulty,
+            "practicality": user.practicality,
+            "collaborative": user.collaborative,
+            "rewarding": user.rewarding,
+            "instruction": user.instruction,
+        }
+    }
+
+    # Structure course data
+    course_data = []
+    for course in available_courses:
+        course_data.append({
+            "id": course.id,
+            "number": course.number,
+            "name": course.name,
+            "professor": course.professor,
+            "quote": course.quote,
+            "requirements": course.requirements,
+            "prerequisites": course.prerequisites,
+            "description": course.description,
+            "content_summary": course.content_summary,
+            "experience_summary": course.experience_summary,
+            "radar": {
+                "liked": course.liked,
+                "difficulty": course.difficulty,
+                "practicality": course.practicality,
+                "collaborative": course.collaborative,
+                "rewarding": course.rewarding,
+                "instruction": course.instruction,
+            }
+        })
+
+    return jsonify({
+        "user": user_data,
+        "courses": course_data
+    })
+

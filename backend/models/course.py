@@ -16,3 +16,6 @@ class Course(db.Model):
     collaborative = db.Column(db.Float)
     rewarding = db.Column(db.Float)
     instruction = db.Column(db.Float)
+
+    content_summary = db.Column(db.Text)
+    experience_summary = db.Column(db.Text)
