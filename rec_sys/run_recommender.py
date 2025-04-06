@@ -4,16 +4,10 @@ from course_recommender import CourseRecommender
 from sample_data import COURSES, SAMPLE_USER
 from filter import filter_taken, filter_major
 from generate_preferences import generate_user_preference_summary
-
-import sys
-import os
-
-
-parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.append(parent_dir)
+from digraph import build_course_graph
+from sample_data import get_course
 
 
-from backend import digraph
 
 def recommend(user, course_graph, method="preference", top_n=3):
 
@@ -25,7 +19,6 @@ def recommend(user, course_graph, method="preference", top_n=3):
     
     # Initialize the recommender
     recommender = CourseRecommender(api_key)
-    recommender.load_courses(COURSES)
 
     # preliminary filtering
     courses = filter_taken(user, course_graph)
@@ -33,19 +26,14 @@ def recommend(user, course_graph, method="preference", top_n=3):
     # if recommending by major
     if method == "major":
         # filter by major
-        courses = filter_major(courses)
+        courses = filter_major(user["major"], courses)
     
+    recommender.load_courses(courses)
+
     user_preference = generate_user_preference_summary(user)
     user_embedding = recommender.onboard_user(user_preference)
     user_recommendations = recommender.recommend_for_user(user_embedding, top_n=top_n)
     
-    # Print recommendations
-    for i, rec in enumerate(user_recommendations):
-        print(f"\nRecommendation {i+1}: {rec['course']['course_number']}")
-        print(f"Professor: {rec['course']['professor']}")
-        print(f"Similarity Score: {rec['similarity_score']:.4f}")
-        print(f"Content Similarity: {rec['content_similarity']:.4f}")
-        print(f"Experience Similarity: {rec['experience_similarity']:.4f}")
     
     return user_recommendations
 
@@ -61,22 +49,23 @@ def re_rank(user, courses):
 
 
 def merge(user, course_graph, top_n=3):
-    by_major = re_rank(recommend(user, course_graph, method="major", top_n=top_n))
-    by_preference = re_rank(recommend(user, course_graph, method="preference", top_n=top_n))
+    by_major = re_rank(user, recommend(user, course_graph, method="major", top_n=top_n))
+    by_preference = re_rank(user, recommend(user, course_graph, method="preference", top_n=top_n))
 
     combined_scores = {}
 
-    for course in enumerate(by_major):
-        combined_scores[course] = max(combined_scores.get(course, 0) + rank(user, course), combined_scores.get(course, 0))
+    for course in by_major:
+        combined_scores[course["course_number"]] = max((combined_scores.get(course["course_number"], 0) + rank(user, course)), combined_scores.get(course["course_number"], 0))
 
-    for course in enumerate(by_preference):
-        combined_scores[course] = max(combined_scores.get(course, 0) + rank(user, course), combined_scores.get(course, 0))
+    for course in by_preference:
+        combined_scores[course["course_number"]] = max((combined_scores.get(course["course_number"], 0) + rank(user, course)), combined_scores.get(course["course_number"], 0))
 
+    
     merged = sorted(combined_scores.keys(), key=lambda x: combined_scores.get(x), reverse=True)
 
-    return [course for course in merged[:top_n]]
+    return [get_course(course) for course in merged[:top_n]]
 
 if __name__ == "__main__":
-    merge(SAMPLE_USER, digraph.course_graph, top_n=3)
+    merge(SAMPLE_USER, build_course_graph(COURSES), top_n=3)
 
     

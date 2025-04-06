@@ -1,13 +1,14 @@
-import sys
-import os
+# import sys
+# import os
 
 
-parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.append(parent_dir)
+# parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+# sys.path.append(parent_dir)
 
 
-from backend import routes
+# from backend import models
 import networkx as nx
+from sample_data import get_course
 
 
 
@@ -29,13 +30,14 @@ def remove_node_and_predecessors(G, target_node):
 
 def filter_taken(user, course_graph):
     taken_numbers = user['past_classes']
-    taken = []
     for t in taken_numbers:
-        taken.append(routes.courses.Course.query.filter_by(number=t).first())
-
-    for course in taken:
-        course_graph = remove_node_and_predecessors(course_graph, course)
-    return list(course_graph.nodes)
+        course_graph = remove_node_and_predecessors(course_graph, t)
+    numbers = list(course_graph.nodes)
+    courses = []
+    for n in numbers:
+        courses.append(get_course(n))
+    print(numbers)
+    return courses
 
 #############################################################
 # This defines a function that filters out courses by major #

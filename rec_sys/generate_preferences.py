@@ -1,7 +1,16 @@
 import time
 import google.generativeai as genai
-from data.info import API_KEY
-from backend.routes.courses import Course
+from info import API_KEY
+
+# import sys
+# import os
+
+
+# parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+# sys.path.append(parent_dir)
+
+# from backend import routes
+from sample_data import get_course
 
 
 class CFG:
@@ -27,7 +36,7 @@ def generate_user_preference_summary(user_info, delay=5):
     preference_text = ", ".join(preference_order[:3])
 
     top_classes = user_info["top_classes"]
-    top_classes_description = ", ".join([Course.query.filter_by(number=t).first()['content_summary'] for t in top_classes])
+    top_classes_description = ", ".join([get_course(t)['content_summary'] for t in top_classes])
 
     # Create the prompt
     prompt = f"""
@@ -50,6 +59,7 @@ def generate_user_preference_summary(user_info, delay=5):
         model = genai.GenerativeModel("gemini-1.5-flash")
         response = model.generate_content(prompt)
         time.sleep(delay)
+        print(f"User preference: {response.text}")
         return response.text.strip()
     except Exception as e:
         return f"Gemini Error: {e}"

@@ -101,12 +101,7 @@ class CourseRecommender:
                 user_embedding, self.experience_embeddings[idx].reshape(1, -1)
             )[0][0]
             
-            recommendations.append({
-                "course": self.courses[idx],
-                "similarity_score": float(score),
-                "content_similarity": float(content_similarity),
-                "experience_similarity": float(experience_similarity)
-            })
+            recommendations.append(self.courses[idx])
             
         return recommendations
     
