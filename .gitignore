@@ -185,3 +185,4 @@ parsed_reports/
 text_reports/
 numerical_reports/
 final_reports/
+sample_data.py
