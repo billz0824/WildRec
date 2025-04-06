@@ -1,17 +1,7 @@
 [
   {
-    "topic_id": 1,
-    "title": "Understanding Market Equilibrium",
-    "description": "Explore how supply and demand curves interact to reach equilibrium and how government interventions can affect competitive markets."
-  },
-  {
-    "topic_id": 2,
-    "title": "Deriving and Analyzing Demand Curves",
-    "description": "Learn the process of deriving demand curves and evaluating changes in consumer welfare as a result of price alterations."
-  },
-  {
-    "topic_id": 3,
-    "title": "Production Functions and Firm Behavior",
-    "description": "Discover how production functions, cost curves, and supply curves define the behavior and decisions of firms in various market settings."
+    "topic_id": "1",
+    "title": "Introduction to ## Detailed Overview of Course Content",
+    "description": "An overview of key concepts in this course"
   }
 ]

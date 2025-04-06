@@ -139,27 +139,15 @@ class SubtitleGenerator:
         logger.info(f"Initialized SubtitleGenerator, output to {self.subtitles_dir}")
     
     def generate_subtitles(self, audio_path: str, script: str, topic_id: str) -> str:
-        """Generate subtitles for an audio file using Whisper and script content"""
+        """Generate subtitles for an audio file using Whisper transcription"""
         logger.info(f"Generating subtitles for audio: {audio_path}")
         
         # Create subtitle file path
         subtitle_path = self.subtitles_dir / f"topic_{topic_id}_subtitles.srt"
         
         try:
-            # Extract lines from script
-            host_lines = re.findall(r"<HOST\d+>(.*?)</HOST\d+>", script, re.DOTALL)
-            expert_lines = re.findall(r"<EXPERT\d+>(.*?)</EXPERT\d+>", script, re.DOTALL)
-            
-            # Combine all lines in order
-            script_lines = []
-            host_patterns = [(int(i), text.strip()) for i, text in re.findall(r"<HOST(\d+)>(.*?)</HOST\d+>", script, re.DOTALL)]
-            expert_patterns = [(int(i), text.strip()) for i, text in re.findall(r"<EXPERT(\d+)>(.*?)</EXPERT\d+>", script, re.DOTALL)]
-            
-            all_patterns = host_patterns + expert_patterns
-            all_patterns.sort(key=lambda x: x[0])  # Sort by line number
-            script_lines = [text for _, text in all_patterns]
-            
-            # Generate transcript from audio
+            # Get accurate transcript from the audio using Whisper
+            logger.info("Transcribing audio with Whisper...")
             with open(audio_path, "rb") as audio_file:
                 transcript = self.client.audio.transcriptions.create(
                     model="whisper-1",
@@ -167,57 +155,69 @@ class SubtitleGenerator:
                     response_format="verbose_json"  # Get detailed timing info
                 )
             
-            # We'll use the Whisper segments for timing, but script lines for content
+            # Use Whisper's segments directly since they match the actual audio
             segments = transcript.segments
+            logger.info(f"Whisper found {len(segments)} segments in the audio")
             
-            # Generate SRT file
+            # Generate SRT file using Whisper segments
             with open(subtitle_path, "w", encoding="utf-8") as srt_file:
                 for i, segment in enumerate(segments):
                     # Index
                     srt_file.write(f"{i+1}\n")
                     
-                    # Timestamp in SRT format (HH:MM:SS,mmm --> HH:MM:SS,mmm)
+                    # Timestamp in SRT format
                     start_time = self._format_timestamp(segment.start)
                     end_time = self._format_timestamp(segment.end)
                     srt_file.write(f"{start_time} --> {end_time}\n")
                     
-                    # If we have enough script lines, use them, otherwise use Whisper text
-                    if i < len(script_lines):
-                        # Break the script line into smaller chunks if it's too long
-                        text = script_lines[i]
-                        if len(text) > 40:  # Break long lines
-                            words = text.split()
-                            chunks = []
-                            current_chunk = []
-                            
-                            for word in words:
-                                current_chunk.append(word)
-                                if len(" ".join(current_chunk)) > 35:
-                                    chunks.append(" ".join(current_chunk))
-                                    current_chunk = []
-                            
-                            if current_chunk:
-                                chunks.append(" ".join(current_chunk))
-                            
-                            text = "\n".join(chunks)
-                        
-                        srt_file.write(f"{text}\n\n")
-                    else:
-                        srt_file.write(f"{segment.text}\n\n")
+                    # Use Whisper's transcribed text and format it nicely for display
+                    formatted_text = self._format_text_for_display(segment.text)
+                    srt_file.write(f"{formatted_text}\n\n")
             
             logger.info(f"Generated subtitles saved to {subtitle_path}")
             return str(subtitle_path)
-        
-        except Exception as e:
-            logger.error(f"Error generating subtitles: {str(e)}")
             
-            # Create a simple fallback subtitle file
+        except Exception as e:
+            logger.error(f"Error generating subtitles: {str(e)}", exc_info=True)
+            # Create fallback subtitles
+            self._create_fallback_subtitles(subtitle_path, script)
+            return str(subtitle_path)
+    
+    def _format_text_for_display(self, text: str) -> str:
+        """Format text for better subtitle display"""
+        words = text.split()
+        if len(words) <= 10:
+            return text
+        
+        # For longer text, break into chunks of ~40 chars
+        chunks = []
+        current_chunk = []
+        current_length = 0
+        
+        for word in words:
+            word_len = len(word) + 1  # +1 for the space
+            if current_length + word_len > 40:
+                chunks.append(" ".join(current_chunk))
+                current_chunk = [word]
+                current_length = word_len
+            else:
+                current_chunk.append(word)
+                current_length += word_len
+        
+        if current_chunk:
+            chunks.append(" ".join(current_chunk))
+        
+        return "\n".join(chunks)
+    
+    def _create_fallback_subtitles(self, subtitle_path: str, script: str) -> None:
+        """Create simple fallback subtitles if the main generation fails"""
+        try:
             with open(subtitle_path, "w", encoding="utf-8") as srt_file:
-                host_lines = re.findall(r"<HOST\d+>(.*?)</HOST\d+>", script, re.DOTALL)
-                expert_lines = re.findall(r"<EXPERT\d+>(.*?)</EXPERT\d+>", script, re.DOTALL)
+                host_parts = re.findall(r"<HOST\d+>(.*?)</HOST\d+>", script, re.DOTALL)
+                expert_parts = re.findall(r"<EXPERT\d+>(.*?)</EXPERT\d+>", script, re.DOTALL)
                 
                 all_lines = []
-                for i, (h, e) in enumerate(zip(host_lines, expert_lines)):
+                for i, (h, e) in enumerate(zip(host_parts, expert_parts)):
                     all_lines.append(h.strip())
                     all_lines.append(e.strip())
                 
@@ -235,17 +235,13 @@ class SubtitleGenerator:
                     srt_time_end = self._format_timestamp(end_time)
                     srt_file.write(f"{srt_time_start} --> {srt_time_end}\n")
                     
-                    # Text (break into multiple lines if too long)
-                    words = line.split()
-                    if len(words) > 10:
-                        mid = len(words) // 2
-                        text = " ".join(words[:mid]) + "\n" + " ".join(words[mid:])
-                        srt_file.write(f"{text}\n\n")
-                    else:
-                        srt_file.write(f"{line}\n\n")
+                    # Format text
+                    formatted_text = self._format_text_for_display(line)
+                    srt_file.write(f"{formatted_text}\n\n")
             
             logger.info(f"Generated fallback subtitles saved to {subtitle_path}")
-            return str(subtitle_path)
+        except Exception as e:
+            logger.error(f"Error creating fallback subtitles: {str(e)}")
     
     def _format_timestamp(self, seconds: float) -> str:
         """Convert seconds to SRT timestamp format (HH:MM:SS,mmm)"""
@@ -274,6 +270,16 @@ class VideoCombiner:
         video_path = self.videos_dir / f"topic_{topic_id}_{clean_title}.mp4"
         
         try:
+            # Create a properly escaped subtitle file path for ffmpeg
+            # This helps with path issues on different operating systems
+            abs_subtitle_path = Path(subtitles_path).absolute()
+            
+            # Enhanced subtitle styling for better visibility and readability
+            subtitle_style = (
+                "FontName=Arial,FontSize=28,PrimaryColour=&HFFFFFF,OutlineColour=&H000000,"
+                "BackColour=&H80000000,BorderStyle=4,Outline=2,Shadow=0,MarginV=20,Alignment=2"
+            )
+            
             # Use ffmpeg to create the video
             cmd = [
                 "ffmpeg",
@@ -281,7 +287,7 @@ class VideoCombiner:
                 "-loop", "1",  # Loop the image
                 "-i", image_path,  # Input image
                 "-i", audio_path,  # Input audio
-                "-vf", f"subtitles={subtitles_path}:force_style='FontName=Arial,FontSize=24,PrimaryColour=&HFFFFFF,OutlineColour=&H000000,BackColour=&H80000000,BorderStyle=4,Outline=1,Shadow=0,MarginV=30'",  # Add subtitles
+                "-vf", f"subtitles='{abs_subtitle_path}':force_style='{subtitle_style}'",  # Add subtitles with better formatting
                 "-c:v", "libx264",  # Video codec
                 "-preset", "medium",  # Encoding speed/quality tradeoff
                 "-tune", "stillimage",  # Optimize for still image
@@ -304,13 +310,64 @@ class VideoCombiner:
             
             if process.returncode != 0:
                 logger.error(f"ffmpeg error: {process.stderr}")
-                raise Exception(f"ffmpeg failed with code {process.returncode}: {process.stderr}")
+                # Try an alternative subtitle integration approach if the first fails
+                return self._create_video_alternative(audio_path, image_path, subtitles_path, video_path)
             
             logger.info(f"Video created successfully at {video_path}")
             return str(video_path)
             
         except Exception as e:
             logger.error(f"Error creating video: {str(e)}")
+            raise
+    
+    def _create_video_alternative(self, audio_path, image_path, subtitles_path, video_path):
+        """Alternative approach to create a video if the primary method fails"""
+        logger.info("Trying alternative video creation approach")
+        
+        try:
+            # Step 1: Convert SRT to ASS format (more compatible with ffmpeg)
+            ass_path = str(Path(subtitles_path).with_suffix('.ass'))
+            
+            # Simple conversion command (basic but should work)
+            convert_cmd = [
+                "ffmpeg",
+                "-y",
+                "-i", subtitles_path,
+                ass_path
+            ]
+            
+            subprocess.run(convert_cmd, capture_output=True, text=True)
+            
+            # Step 2: Use ASS subtitles instead
+            cmd = [
+                "ffmpeg",
+                "-y",
+                "-loop", "1",
+                "-i", image_path,
+                "-i", audio_path,
+                "-vf", f"ass='{ass_path}'",
+                "-c:v", "libx264",
+                "-preset", "medium", 
+                "-tune", "stillimage",
+                "-c:a", "aac",
+                "-strict", "experimental",
+                "-b:a", "192k",
+                "-pix_fmt", "yuv420p",
+                "-shortest",
+                str(video_path)
+            ]
+            
+            process = subprocess.run(cmd, capture_output=True, text=True)
+            
+            if process.returncode != 0:
+                logger.error(f"Alternative ffmpeg approach also failed: {process.stderr}")
+                raise Exception("Both video creation approaches failed")
+                
+            logger.info(f"Video created successfully with alternative method at {video_path}")
+            return str(video_path)
+            
+        except Exception as e:
+            logger.error(f"Error in alternative video creation: {str(e)}")
             raise
 
 class PodcastVideoGenerator:

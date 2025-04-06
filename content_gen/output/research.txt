@@ -1,39 +1,48 @@
 Web Search Results for 'Econ 310-1':
 
-## Detailed Overview of ECON 310-1: Microeconomics
+## Detailed Overview of Course Content
 
-ECON 310-1 at Northwestern University is an advanced microeconomics course designed for economics majors and minors. It builds upon foundational concepts covered in ECON 202 (Introduction to Microeconomics) and delves deeper into the behavior of consumers and producers in market economies, using mathematical models to analyze market structures such as competition, monopoly, and monopsony[1][2][3].
+**Econ 310-1: Microeconomics** at Northwestern University is an intermediate course designed primarily for economics majors and minors. It builds upon the foundational concepts of microeconomics covered in ECON 202, using mathematical models to analyze the behavior of consumers and producers in market economies. The course covers key topics such as equilibrium analysis, constrained optimization, and comparative statics to understand markets under different conditions like competition, monopoly, and monopsony[1][2][3].
 
-### Key Topics and Concepts Covered
+## Key Topics and Concepts
 
-- **Market Equilibrium:** The course focuses on using supply and demand curves to analyze equilibrium and the effects of government interventions in competitive markets[1][4].
-- **Consumer Theory:** Students learn to derive demand curves and analyze consumer welfare changes due to price shifts[4].
-- **Producer Theory:** Emphasis is placed on understanding production functions, cost curves, and supply curves to characterize firm behavior[4].
-- **Market Structures:** Analysis of market outcomes in perfect competition, monopoly, and monopsony settings[3][4].
-- **Comparative Statics and Equilibrium Analysis:** These tools are used to model and analyze economic problems[1][3].
+- **Equilibrium Analysis**: Understanding how supply and demand curves interact to determine market equilibria.
+- **Constrained Optimization**: Analyzing consumer and producer choices under budget and resource constraints.
+- **Comparative Statics**: Examining how changes in economic variables affect market outcomes.
+- **Consumer Theory**: Deriving demand curves and analyzing consumer welfare.
+- **Producer Theory**: Applying production functions and cost curves to analyze firm behavior.
+- **Market Structures**: Analyzing perfect competition, monopoly, and monopsony[1][2][4].
 
-### Learning Objectives
+## Learning Objectives
 
-After completing this course, students will be able to:
-1. **Analyze Market Equilibrium:** Use supply and demand curves to study equilibrium and government interventions[1][4].
-2. **Characterize Consumer Behavior:** Derive demand curves and assess welfare changes due to price shifts[4].
-3. **Describe Firm Behavior:** Analyze production functions, cost curves, and supply curves for firms[4].
-4. **Compare Market Structures:** Understand market outcomes in different competitive environments[3][4].
+After completing this course, students are expected to:
+1. Use supply and demand curves to analyze equilibrium and efficient resource allocation.
+2. Derive a consumer's demand curve and assess changes in consumer welfare.
+3. Characterize a firm's production technology using cost and supply curves.
+4. Compare market outcomes across different market structures[1][2][3].
 
-Additional goals include developing numeracy, improving problem-solving skills, and applying economic theory to real-world issues[1][2].
+## Typical Assignments or Projects
 
-### Typical Assignments or Projects
+- **Weekly Problem Sets**: These are crucial for practicing problem-solving skills and are graded, contributing to a significant portion of the course grade[1][2].
+- **Exams**: The course includes four exams (three in-class and one cumulative final), which test students' ability to apply microeconomic theory[1][2].
 
-- **Weekly Problem Sets:** Due on Mondays, with the option to drop the two lowest scores[2][4].
-- **Exams:** Four exams, including a cumulative final, that test theoretical application and understanding[2][4].
-- No calculators are allowed on exams to emphasize basic arithmetic operations[1][4].
+## Required Textbooks
 
-### Required Textbooks
+While there isn't a single required textbook specified in all versions of the syllabus, **"Microeconomics" by Besanko and Braeutigam (6th edition)** is recommended as a reference for some sections of the course[4].
 
-The specific textbook is not mentioned in the available syllabi. However, it's common for such courses to use textbooks like "Microeconomics" by Gregory Mankiw or similar advanced microeconomics texts.
+## Syllabus Information
 
-### Syllabus Information
+### Prerequisites
+- ECON 201 (Introduction to Macroeconomics)
+- ECON 202 (Introduction to Microeconomics)
+- MATH 220 (Differential Calculus)[1][2][3].
 
-- **Prerequisites:** ECON 201 (Introduction to Macroeconomics), ECON 202 (Introduction to Microeconomics), and MATH 220-1 (Differential Calculus)[1][2][3].
-- **Meeting Time:** Typically meets Monday, Wednesday, Friday at 10:00 AM - 10:50 AM[3].
-- **Evaluation:** Based on four exams and weekly problem sets. Exams account for 420 points, and problem sets account for 60 points[2][4].
+### Evaluation
+- **Problem Sets**: 60 points (drop the lowest two out of ten)[1][2].
+- **Exams**: Four exams, each 120 points; the best three scores are used to determine the exam portion of the grade[1][2].
+
+### Key Dates
+- Typically, the course includes four exams spaced throughout the quarter or semester, with the final being cumulative[1][2][4]. 
+
+### Class Format
+- Three lectures and one discussion section per week[3].
