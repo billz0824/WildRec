@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './AuthContext';
+import LandingPage from './pages/LandingPage';
 import Onboarding from './pages/OnboardingPage';
 import HomePage from './pages/HomePage';
 import SavedCoursesPage from './pages/SavedCoursesPage';
@@ -20,7 +21,7 @@ function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
 
   if (loading) return <p>Loading...</p>;
-  if (!user) return <Navigate to="/onboarding" replace />;
+  if (!user) return <Navigate to="/" replace />;
 
   return children;
 }
@@ -31,14 +32,15 @@ function App() {
       <Router {...routerOptions}>
         <div className="App">
           <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<LandingPage />} />
             <Route path="/onboarding" element={
-              <>
-                <header className="App-header">
-                  <h1>Welcome to WildRec</h1>
-                </header>
+              <ProtectedRoute>
                 <Onboarding />
-              </>
+              </ProtectedRoute>
             } />
+
+            {/* Protected Routes */}
             <Route path="/home" element={
               <ProtectedRoute>
                 <MainLayout><HomePage /></MainLayout>
@@ -47,9 +49,9 @@ function App() {
             <Route
               path="/discover"
               element={
-                <MainLayout>
-                  <DiscoverPage />
-                </MainLayout>
+                <ProtectedRoute>
+                  <MainLayout><DiscoverPage /></MainLayout>
+                </ProtectedRoute>
               }
             />
             <Route path="/saved" element={
@@ -62,7 +64,9 @@ function App() {
                 <MainLayout><CourseProfilePage /></MainLayout>
               </ProtectedRoute>
             } />
-            <Route path="/" element={<Navigate to="/onboarding" replace />} />
+
+            {/* Catch all redirect to landing */}
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
       </Router>
