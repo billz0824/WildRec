@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useUser } from '../../context/UserContext';
+import { Box, Typography, TextField, Button } from '@mui/material';
 
 const PastCourses = ({ next, back }) => {
   const { updatePreferences } = useUser();
@@ -20,56 +21,196 @@ const PastCourses = ({ next, back }) => {
     next();
   };
 
+  const isValid = topCourses.filter(course => course.trim()).length > 0;
+
+  const commonTextFieldStyles = {
+    '& .MuiOutlinedInput-root': {
+      bgcolor: '#1e1e1e',
+      color: 'white',
+      '& fieldset': {
+        borderColor: 'rgba(168, 85, 247, 0.2)',
+      },
+      '&:hover fieldset': {
+        borderColor: 'rgba(168, 85, 247, 0.3)',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#a855f7',
+      },
+    },
+    '& .MuiInputLabel-root': {
+      color: 'rgba(255, 255, 255, 0.7)',
+    },
+    '& .MuiInputBase-input': {
+      '&::placeholder': {
+        color: 'rgba(255, 255, 255, 0.5)',
+        opacity: 1,
+      },
+    },
+    '& .MuiAutocomplete-paper': {
+      bgcolor: '#1e1e1e',
+      color: 'white',
+      border: '1px solid rgba(168, 85, 247, 0.2)',
+      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)',
+    },
+    '& .MuiAutocomplete-listbox': {
+      bgcolor: '#1e1e1e',
+      '& .MuiAutocomplete-option': {
+        color: 'white',
+        '&[data-focus="true"]': {
+          bgcolor: 'rgba(168, 85, 247, 0.1)',
+        },
+        '&[aria-selected="true"]': {
+          bgcolor: 'rgba(168, 85, 247, 0.2)',
+        },
+      },
+    },
+  };
+
   return (
-    <div className="onboarding-step dark text-white p-8 max-w-lg mx-auto">
-      <h2 className="text-2xl font-bold mb-6">Tell us about your past courses</h2>
+    <Box
+      sx={{
+        width: '100%',
+        maxWidth: '600px',
+        mx: 'auto',
+        p: 4,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 4
+      }}
+    >
+      <Typography 
+        variant="h4" 
+        sx={{ 
+          fontWeight: 700,
+          textAlign: 'center',
+          mb: 1,
+          background: 'linear-gradient(to right, #a855f7, #7c3aed)',
+          backgroundClip: 'text',
+          WebkitBackgroundClip: 'text',
+          color: 'transparent',
+        }}
+      >
+        Your Course History
+      </Typography>
 
-      <div className="mb-6">
-        <h3 className="text-lg font-medium mb-4">Top 3 Courses You've Taken</h3>
+      <Typography 
+        sx={{ 
+          textAlign: 'center', 
+          mb: 2,
+          color: 'rgba(255, 255, 255, 0.7)',
+          fontSize: '0.9rem'
+        }}
+      >
+        Tell us about the courses you've enjoyed to help us make better recommendations
+      </Typography>
+
+      <Box sx={{ width: '100%', maxWidth: '400px' }}>
+        <Typography 
+          variant="h6" 
+          sx={{ 
+            mb: 2,
+            color: 'white',
+            fontSize: '1rem',
+            fontWeight: 'bold'
+          }}
+        >
+          Top 3 Courses You've Taken
+        </Typography>
+        
         {topCourses.map((course, index) => (
-          <div key={index} className="mb-4">
-            <label className="block">
-              <span className="text-sm font-medium">Course {index + 1}</span>
-              <input
-                className="w-full mt-1 p-2 rounded bg-gray-800 border border-gray-600"
-                placeholder={`Enter course ${index + 1}`}
-                value={course}
-                onChange={(e) => handleTopCourseChange(index, e.target.value)}
-              />
-            </label>
-          </div>
-        ))}
-      </div>
-
-      <div className="mb-6">
-        <h3 className="text-lg font-medium mb-4">Other Courses (Optional)</h3>
-        <label className="block">
-          <span className="text-sm font-medium">Additional Courses</span>
-          <textarea
-            className="w-full mt-1 p-2 rounded bg-gray-800 border border-gray-600"
-            placeholder="Enter other courses, separated by commas"
-            value={otherCourses}
-            onChange={(e) => setOtherCourses(e.target.value)}
-            rows={3}
+          <TextField
+            key={index}
+            fullWidth
+            placeholder={`Course ${index + 1} (e.g., COMP_SCI 211)`}
+            value={course}
+            onChange={(e) => handleTopCourseChange(index, e.target.value)}
+            sx={{
+              mb: 2,
+              ...commonTextFieldStyles
+            }}
           />
-        </label>
-      </div>
+        ))}
 
-      <div className="flex justify-between mt-6">
-        <button
+        <Typography 
+          variant="h6" 
+          sx={{ 
+            mt: 4,
+            mb: 2,
+            color: 'white',
+            fontSize: '1rem',
+            fontWeight: 'bold'
+          }}
+        >
+          Other Courses (Optional)
+        </Typography>
+        
+        <TextField
+          fullWidth
+          multiline
+          rows={3}
+          placeholder="Enter other courses, separated by commas"
+          value={otherCourses}
+          onChange={(e) => setOtherCourses(e.target.value)}
+          sx={commonTextFieldStyles}
+        />
+      </Box>
+
+      <Box 
+        sx={{ 
+          display: 'flex', 
+          gap: 2, 
+          mt: 4,
+          width: '100%',
+          maxWidth: '400px',
+          justifyContent: 'space-between'
+        }}
+      >
+        <Button
           onClick={back}
-          className="px-4 py-2 bg-gray-700 rounded text-white hover:bg-gray-600"
+          variant="contained"
+          sx={{
+            bgcolor: '#2a2a2a',
+            color: 'white',
+            borderRadius: '12px',
+            padding: '12px 24px',
+            fontSize: '1rem',
+            textTransform: 'none',
+            '&:hover': {
+              bgcolor: '#3a3a3a',
+            },
+          }}
         >
           Back
-        </button>
-        <button
+        </Button>
+
+        <Button
           onClick={handleNext}
-          className="px-4 py-2 bg-purple-600 rounded text-white hover:bg-purple-700"
+          disabled={!isValid}
+          variant="contained"
+          sx={{
+            bgcolor: isValid ? '#7c3aed' : '#2a2a2a',
+            color: 'white',
+            borderRadius: '12px',
+            padding: '12px 24px',
+            fontSize: '1rem',
+            textTransform: 'none',
+            boxShadow: isValid ? '0 4px 20px rgba(168, 85, 247, 0.2)' : 'none',
+            border: `1px solid ${isValid ? 'rgba(168, 85, 247, 0.2)' : 'transparent'}`,
+            '&:hover': {
+              bgcolor: isValid ? '#6d28d9' : '#2a2a2a',
+              boxShadow: isValid ? '0 4px 25px rgba(168, 85, 247, 0.3)' : 'none',
+            },
+            '&.Mui-disabled': {
+              bgcolor: '#2a2a2a',
+              color: 'rgba(255, 255, 255, 0.3)',
+            }
+          }}
         >
-          Finish
-        </button>
-      </div>
-    </div>
+          Continue
+        </Button>
+      </Box>
+    </Box>
   );
 };
 

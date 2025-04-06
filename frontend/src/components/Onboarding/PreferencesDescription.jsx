@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { useUser } from '../../context/UserContext';
 import { Box, Typography, TextField, Button } from '@mui/material';
 
-const Preferences = ({ next, back }) => {
+const PreferencesDescription = ({ next, back }) => {
   const { updatePreferences } = useUser();
   const [description, setDescription] = useState('');
 
   const handleNext = () => {
-    updatePreferences({ coursePreferences: description });
+    updatePreferences({ coursePreferencesDescription: description });
     next();
   };
 
@@ -38,7 +38,7 @@ const Preferences = ({ next, back }) => {
           color: 'transparent',
         }}
       >
-        What are you looking for?
+        Tell us more about your preferences
       </Typography>
 
       <Typography 
@@ -50,7 +50,7 @@ const Preferences = ({ next, back }) => {
           maxWidth: '400px'
         }}
       >
-        Tell us what matters most to you in a course. This helps us tailor recommendations to your preferences.
+        Help us understand what you're looking for in your courses. This will help us provide more personalized recommendations.
       </Typography>
 
       <Box sx={{ width: '100%', maxWidth: '400px' }}>
@@ -58,12 +58,7 @@ const Preferences = ({ next, back }) => {
           fullWidth
           multiline
           rows={6}
-          placeholder="Describe what you're looking for in your courses. For example:
-• Teaching style preferences
-• Workload balance
-• Project-based vs. theory-focused
-• Collaborative or individual work
-• Specific topics or skills you want to learn"
+          placeholder="Describe what you're looking for in your courses. "
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           sx={{
@@ -145,11 +140,11 @@ const Preferences = ({ next, back }) => {
             }
           }}
         >
-          Continue
+          Finish
         </Button>
       </Box>
     </Box>
   );
 };
 
-export default Preferences;
+export default PreferencesDescription; 

@@ -8,6 +8,14 @@ import MainLayout from './layouts/MainLayout';
 import CourseProfilePage from './pages/CourseProfilePage';
 import DiscoverPage from './pages/DiscoverPage';
 
+// Enable React Router v7 features
+const routerOptions = {
+  future: {
+    v7_startTransition: true,
+    v7_relativeSplatPath: true
+  }
+};
+
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
 
@@ -20,7 +28,7 @@ function ProtectedRoute({ children }) {
 function App() {
   return (
     <AuthProvider>
-      <Router>
+      <Router {...routerOptions}>
         <div className="App">
           <Routes>
             <Route path="/onboarding" element={
