@@ -1,5 +1,3 @@
-
-
 # Sample course data
 COURSES = [
     {
@@ -66,35 +64,16 @@ COURSES = [
 
 
 # Sample user interest data
-SAMPLE_USERS = [
-    {
+SAMPLE_USER = {
         "email": "mimi@wildrec.ai",
-        "major": "Computer Science",
-        "goal_description": "Looking for practical and collaborative courses",
+        "major": "MATH",
+        "goal_description": "Have to take more math, but looking to take as small steps as possible. I do not want to learn multivariable calculus. I really enjoyed single variable. Maybe some series?",
         "liked": 1,
         "difficulty": 2,
         "practicality": 3,
         "collaborative": 4,
         "rewarding": 4,
         "instruction": 5,
-        "past_classes": ["CS 101", "MATH 200"],
-        "top_classes": ["CS 201", "AI 300"]
-    },
-    {
-        "email": "mimi@wildrec.ai",
-        "goal_description": "Looking for practical and collaborative courses",
-        "major": "Computer Science",
-        "past_classes": ["CS 101", "MATH 200"],
-        "radar": {
-            "collaborative": 4.7,
-            "difficulty": 3.0,
-            "instruction": 4.9,
-            "liked": 4.5,
-            "practicality": 5.0,
-            "rewarding": 4.8
-        },
-        "top_classes": ["CS 201", "AI 300"],
-        "user_id": 1,
-        "username": "mimi"
+        "past_classes": ["MATH 200"],
+        "top_classes": ["MATH 218"]
     }
-]
