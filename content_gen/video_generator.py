@@ -159,6 +159,13 @@ class SubtitleGenerator:
             segments = transcript.segments
             logger.info(f"Whisper found {len(segments)} segments in the audio")
             
+            # Save the full transcript text for the interactive API
+            transcript_text = transcript.text
+            transcript_path = self.output_dir / "transcripts"
+            transcript_path.mkdir(exist_ok=True)
+            with open(transcript_path / f"topic_{topic_id}_transcript.txt", "w", encoding="utf-8") as f:
+                f.write(transcript_text)
+            
             # Generate SRT file using Whisper segments
             with open(subtitle_path, "w", encoding="utf-8") as srt_file:
                 for i, segment in enumerate(segments):

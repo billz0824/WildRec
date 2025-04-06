@@ -1,12 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Box, Drawer, List, ListItemButton, ListItemIcon, ListItemText, Typography} from '@mui/material';
-import { FaHome, FaBookmark, FaCompass } from 'react-icons/fa';
+import { FaHome, FaBookmark, FaCompass, FaPodcast } from 'react-icons/fa';
 
 const navItems = [
   { label: 'Home', icon: <FaHome />, to: '/home' },
   { label: 'Discover', icon: <FaCompass />, to: '/discover' },
   { label: 'Saved Courses', icon: <FaBookmark />, to: '/saved' },
+  { label: 'Podcasts', icon: <FaPodcast />, to: '/podcasts' },
 ];
 
 const Sidebar = () => {

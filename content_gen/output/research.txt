@@ -1,48 +1,34 @@
-Web Search Results for 'Econ 310-1':
+Web Search Results for 'Econ CS 349':
 
-## Detailed Overview of Course Content
+Unfortunately, the specific course "Econ CS 349" does not appear in the search results provided. However, Northwestern University offers several courses under the Economics department that may be of interest, including **ECON 349-CN Industrial Economics**, which is the closest match based on the course number.
 
-**Econ 310-1: Microeconomics** at Northwestern University is an intermediate course designed primarily for economics majors and minors. It builds upon the foundational concepts of microeconomics covered in ECON 202, using mathematical models to analyze the behavior of consumers and producers in market economies. The course covers key topics such as equilibrium analysis, constrained optimization, and comparative statics to understand markets under different conditions like competition, monopoly, and monopsony[1][2][3].
+Here is an overview based on available information:
+
+## Course Overview
+**ECON 349-CN Industrial Economics** focuses on the economics of transportation and the regulatory environment in which transportation operates. It explores topics such as demand by passengers and freight shippers, costs of production, optimal pricing, regulatory interventions, subsidies, evaluation of investment, and dealing with congestion[1].
 
 ## Key Topics and Concepts
-
-- **Equilibrium Analysis**: Understanding how supply and demand curves interact to determine market equilibria.
-- **Constrained Optimization**: Analyzing consumer and producer choices under budget and resource constraints.
-- **Comparative Statics**: Examining how changes in economic variables affect market outcomes.
-- **Consumer Theory**: Deriving demand curves and analyzing consumer welfare.
-- **Producer Theory**: Applying production functions and cost curves to analyze firm behavior.
-- **Market Structures**: Analyzing perfect competition, monopoly, and monopsony[1][2][4].
+- **Demand Analysis**: Understanding demand patterns for different types of transportation.
+- **Cost Structure**: Examining the production costs associated with various transportation modes.
+- **Pricing Strategies**: Applying optimal pricing theories to transportation services.
+- **Regulatory Framework**: Analyzing regulatory measures, subsidies, and investments in transportation infrastructure.
+- **Congestion Management**: Strategies for mitigating congestion in transportation networks.
 
 ## Learning Objectives
-
-After completing this course, students are expected to:
-1. Use supply and demand curves to analyze equilibrium and efficient resource allocation.
-2. Derive a consumer's demand curve and assess changes in consumer welfare.
-3. Characterize a firm's production technology using cost and supply curves.
-4. Compare market outcomes across different market structures[1][2][3].
+- Students will understand the fundamental principles of industrial economics as applied to transportation.
+- They will be able to analyze demand and cost structures in transportation markets.
+- They will apply economic theories to evaluate pricing strategies and regulatory policies.
 
 ## Typical Assignments or Projects
-
-- **Weekly Problem Sets**: These are crucial for practicing problem-solving skills and are graded, contributing to a significant portion of the course grade[1][2].
-- **Exams**: The course includes four exams (three in-class and one cumulative final), which test students' ability to apply microeconomic theory[1][2].
+Typically, assignments in such courses include case studies of transportation systems, economic analyses of transportation sectors, and policy briefs on regulatory issues. Specific projects might involve:
+- Analyzing the impact of government subsidies on transportation markets.
+- Evaluating the efficiency of different pricing models in transportation.
+- Conducting a cost-benefit analysis of a proposed transportation infrastructure project.
 
 ## Required Textbooks
-
-While there isn't a single required textbook specified in all versions of the syllabus, **"Microeconomics" by Besanko and Braeutigam (6th edition)** is recommended as a reference for some sections of the course[4].
+Specific textbooks for this course are not listed in the provided sources. However, common texts in industrial economics might include books by authors like David Besanko, David Dranove, and Mark Shanley, or similar foundational texts on microeconomic theory and industrial organization[1].
 
 ## Syllabus Information
+Detailed syllabus content, including specific readings, meeting schedules, and grading policies, would typically be available from the instructor or Northwestern University's course portal[3].
 
-### Prerequisites
-- ECON 201 (Introduction to Macroeconomics)
-- ECON 202 (Introduction to Microeconomics)
-- MATH 220 (Differential Calculus)[1][2][3].
-
-### Evaluation
-- **Problem Sets**: 60 points (drop the lowest two out of ten)[1][2].
-- **Exams**: Four exams, each 120 points; the best three scores are used to determine the exam portion of the grade[1][2].
-
-### Key Dates
-- Typically, the course includes four exams spaced throughout the quarter or semester, with the final being cumulative[1][2][4]. 
-
-### Class Format
-- Three lectures and one discussion section per week[3].
+This course prepares students to apply economic principles to understand the complex interactions within the transportation sector and make informed decisions about policy and management.

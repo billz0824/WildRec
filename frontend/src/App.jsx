@@ -8,6 +8,7 @@ import SavedCoursesPage from './pages/SavedCoursesPage';
 import MainLayout from './layouts/MainLayout';
 import CourseProfilePage from './pages/CourseProfilePage';
 import DiscoverPage from './pages/DiscoverPage';
+import FeedPage from './pages/FeedPage';
 
 // Enable React Router v7 features
 const routerOptions = {
@@ -62,6 +63,13 @@ function App() {
             <Route path="/course/:id" element={
               <ProtectedRoute>
                 <MainLayout><CourseProfilePage /></MainLayout>
+              </ProtectedRoute>
+            } />
+            
+            {/* Podcast Interactive Feature - Full Screen */}
+            <Route path="/podcasts" element={
+              <ProtectedRoute>
+                <MainLayout><FeedPage /></MainLayout>
               </ProtectedRoute>
             } />
 

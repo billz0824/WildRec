@@ -1,7 +1,27 @@
 [
   {
-    "topic_id": "1",
-    "title": "Introduction to ## Detailed Overview of Course Content",
-    "description": "An overview of key concepts in this course"
+    "topic_id": 1,
+    "title": "Understanding Demand in Transportation Economics",
+    "description": "This topic covers the analysis of demand patterns in transportation, examining how passenger and freight needs influence market dynamics."
+  },
+  {
+    "topic_id": 2,
+    "title": "Examining Cost Structures in Transportation Modes",
+    "description": "Focuses on the different production costs associated with various modes of transportation, such as rail, road, and air."
+  },
+  {
+    "topic_id": 3,
+    "title": "Optimal Pricing Strategies for Transport Services",
+    "description": "This topic involves applying economic theories to develop pricing strategies that maximize profitability for transportation services."
+  },
+  {
+    "topic_id": 4,
+    "title": "Impact of Regulations and Subsidies in Transportation",
+    "description": "Analyzes how regulatory interventions and government subsidies affect transportation markets and infrastructure investment decisions."
+  },
+  {
+    "topic_id": 5,
+    "title": "Effective Congestion Management Techniques",
+    "description": "Discusses strategies to mitigate congestion, focusing on solutions like pricing policies, alternate routing, and infrastructure improvement."
   }
 ]

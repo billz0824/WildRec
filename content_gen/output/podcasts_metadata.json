@@ -1,22 +1,74 @@
 {
-  "course_name": "Econ 310-1",
-  "generation_timestamp": "2025-04-05T23:31:31.442115",
-  "num_topics": 1,
+  "course_name": "Econ CS 349",
+  "generation_timestamp": "2025-04-06T02:20:17.595794",
+  "num_topics": 5,
   "topics": [
     {
-      "topic_id": "1",
-      "title": "Introduction to ## Detailed Overview of Course Content",
-      "description": "An overview of key concepts in this course"
+      "topic_id": 1,
+      "title": "Understanding Demand in Transportation Economics",
+      "description": "This topic covers the analysis of demand patterns in transportation, examining how passenger and freight needs influence market dynamics."
+    },
+    {
+      "topic_id": 2,
+      "title": "Examining Cost Structures in Transportation Modes",
+      "description": "Focuses on the different production costs associated with various modes of transportation, such as rail, road, and air."
+    },
+    {
+      "topic_id": 3,
+      "title": "Optimal Pricing Strategies for Transport Services",
+      "description": "This topic involves applying economic theories to develop pricing strategies that maximize profitability for transportation services."
+    },
+    {
+      "topic_id": 4,
+      "title": "Impact of Regulations and Subsidies in Transportation",
+      "description": "Analyzes how regulatory interventions and government subsidies affect transportation markets and infrastructure investment decisions."
+    },
+    {
+      "topic_id": 5,
+      "title": "Effective Congestion Management Techniques",
+      "description": "Discusses strategies to mitigate congestion, focusing on solutions like pricing policies, alternate routing, and infrastructure improvement."
     }
   ],
   "podcasts": [
     {
-      "topic_id": "1",
-      "topic_title": "Introduction to ## Detailed Overview of Course Content",
-      "combined_audio_path": "output/audio/podcast_1_introduction_to__detailed_overview_of_course_content.mp3",
-      "total_duration_ms": 103863,
-      "total_duration_formatted": "103.86 seconds",
-      "processing_time_s": 5.439309
+      "topic_id": 1,
+      "topic_title": "Understanding Demand in Transportation Economics",
+      "combined_audio_path": "output/audio/podcast_1_understanding_demand_in_transportation_economics.mp3",
+      "total_duration_ms": 94903,
+      "total_duration_formatted": "94.90 seconds",
+      "processing_time_s": 10.918972
+    },
+    {
+      "topic_id": 2,
+      "topic_title": "Examining Cost Structures in Transportation Modes",
+      "combined_audio_path": "output/audio/podcast_2_examining_cost_structures_in_transportation_modes.mp3",
+      "total_duration_ms": 92944,
+      "total_duration_formatted": "92.94 seconds",
+      "processing_time_s": 10.258982
+    },
+    {
+      "topic_id": 3,
+      "topic_title": "Optimal Pricing Strategies for Transport Services",
+      "combined_audio_path": "output/audio/podcast_3_optimal_pricing_strategies_for_transport_services.mp3",
+      "total_duration_ms": 115382,
+      "total_duration_formatted": "115.38 seconds",
+      "processing_time_s": 15.163704
+    },
+    {
+      "topic_id": 4,
+      "topic_title": "Impact of Regulations and Subsidies in Transportation",
+      "combined_audio_path": "output/audio/podcast_4_impact_of_regulations_and_subsidies_in_transportation.mp3",
+      "total_duration_ms": 89862,
+      "total_duration_formatted": "89.86 seconds",
+      "processing_time_s": 13.306804
+    },
+    {
+      "topic_id": 5,
+      "topic_title": "Effective Congestion Management Techniques",
+      "combined_audio_path": "output/audio/podcast_5_effective_congestion_management_techniques.mp3",
+      "total_duration_ms": 84349,
+      "total_duration_formatted": "84.35 seconds",
+      "processing_time_s": 13.136434
     }
   ]
 }

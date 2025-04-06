@@ -2,10 +2,51 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <!-- Inline script to immediately block problematic actions -->
+    <script>
+      (function() {
+        console.log('[Critical MediaSession Fix] Applying immediate patches');
+        
+        // Block PiP API immediately
+        if (document.pictureInPictureEnabled !== undefined) {
+          Object.defineProperty(document, 'pictureInPictureEnabled', { 
+            get: function() { return false; } 
+          });
+        }
+        
+        // Block global autoPip object
+        window.autoPip = {
+          init: function() { return this; },
+          enable: function() { return this; },
+          disable: function() { return this; },
+          isPipSupported: function() { return false; }
+        };
+        
+        // Block problematic MediaSession actions as early as possible
+        if ('mediaSession' in navigator) {
+          const originalSetActionHandler = navigator.mediaSession.setActionHandler;
+          navigator.mediaSession.setActionHandler = function(action, handler) {
+            if (action === 'enterpictureinpicture') {
+              console.warn('[Critical Fix] Blocked enterpictureinpicture');
+              return;
+            }
+            try {
+              return originalSetActionHandler.call(this, action, handler);
+            } catch (e) {}
+          };
+        }
+      })();
+    </script>
+    <!-- Critical fix for MediaSession API errors - load at the earliest possible moment -->
+    <script src="%PUBLIC_URL%/fixMediaSession.js"></script>
+    <!-- Block problematic autoPip.js script -->
+    <script src="%PUBLIC_URL%/blockAutoPip.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="WildRec - Your Wildlife Recognition App" />
     <title>WildRec</title>
+    <!-- Backward compatibility for previous fixes -->
+    <script src="%PUBLIC_URL%/fixPip.js"></script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

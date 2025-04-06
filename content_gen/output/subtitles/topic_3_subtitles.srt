@@ -1,143 +1,140 @@
 1
 00:00:00,000 --> 00:00:03,440
-Alright folks, here’s a brain tickler
-for you: Why did the economist break
-up with the production function? Because
-it just wasn’t producing enough curve
-appeal! Welcome to today’s university
-comedy crash course where we’re talking
-about the oh-so-sexy world of production
-functions and firm behavior. You thought
-economics wasn’t funny? Well, just wait
-until you hear about cost curves! Buckle
-up—and let's unravel why understanding
-how a firm behaves is more complicated
-than my family at Thanksgiving dinner.
+ Alright folks, here's a brain teaser for you.
 
 2
-00:00:03,440 --> 00:00:07,159
-Great to be here! So, let's get into
-it. Production functions describe the
-relationship between the inputs a firm
-uses—like labor and capital—and the maximum
-output it can produce. It’s like baking:
-more ingredients, more cake... up to
-a point. As you add more inputs, the
-additional output may start to decline.
-Cost curves, on the other hand, help
-firms decide at what point the cost of
-producing one more unit is too high to
-continue profitably. Together, with supply
-curves, we can get a full picture of
-a firm's behavior and decision-making
-processes in various market settings.
+00:00:03,440 --> 00:00:07,320
+ What's the only thing more unpredictable than Chicago weather?
 
 3
-00:00:07,159 --> 00:00:11,079
-So, if a firm is a pizza place, are cost
-curves the ones telling them to stop
-adding so much pineapple?
+00:00:07,320 --> 00:00:10,920
+ Give you a hint, it's not your grandma's stock tips.
 
 4
-00:00:11,079 --> 00:00:16,479
-Exactly, and even more so, they help
-decide if pineapple should be on the
-menu at all! Firms use these models to
-make decisions like how much to produce
-and at what price point to sell, which
-is crucial whether they're in a competitive
-market or a monopoly. Ultimately, this
-analysis helps firms maximize profit
-by identifying the most efficient level
-of production. So in essence, those charts
-and graphs? They’re basically the Google
-Maps of economics!
+00:00:10,920 --> 00:00:13,600
+ Nope, it's transport pricing.
 
 5
-00:00:16,479 --> 00:00:20,319
- world of production functions and firm behavior.
+00:00:13,600 --> 00:00:19,680
+Yes, ladies and gentlemen, figuring out
+what to charge for a bus ticket or a
+cargo shipment
 
 6
-00:00:20,319 --> 00:00:22,559
- You thought economics wasn't funny?
+00:00:19,680 --> 00:00:23,159
+ could make even Einstein's head spin.
 
 7
-00:00:22,559 --> 00:00:26,079
- Well, just wait until you hear about cost curves.
+00:00:23,159 --> 00:00:29,260
+Today we dive into the magical world of
+optimal pricing strategies for
+transport services.
 
 8
-00:00:26,079 --> 00:00:31,879
- Buckle up, and let's unravel why understanding how a firm behaves is more complicated than
+00:00:29,260 --> 00:00:34,259
+It's like trying to sell ice to an
+Eskimo, or better yet, trying to make
+the kind of
 
 9
-00:00:31,879 --> 00:00:34,240
- my family at Thanksgiving dinner.
+00:00:34,259 --> 00:00:37,200
+ profit that doesn't require the mob.
 
 10
-00:00:34,240 --> 00:00:37,200
- Great to be here, so let's get into it.
+00:00:37,200 --> 00:00:38,939
+ Great introduction.
 
 11
-00:00:37,200 --> 00:00:41,319
- Production functions describe the relationship between the inputs a firm uses, like labor
+00:00:38,939 --> 00:00:44,240
+Optimal pricing for transport is all
+about balancing supply and demand,
+often using complex
 
 12
-00:00:41,319 --> 00:00:45,639
- and capital, and the maximum output it can produce.
+00:00:44,240 --> 00:00:46,340
+ economic theories.
 
 13
-00:00:45,639 --> 00:00:50,639
- It's like baking, more ingredients, more cake, up to a point.
+00:00:46,340 --> 00:00:51,619
+The aim is to maximize a company's
+profitability without alienating
+customers.
 
 14
-00:00:50,639 --> 00:00:55,360
- As you add more inputs, the additional output may start to decline.
+00:00:51,619 --> 00:00:54,060
+ Think of it as the Goldilocks principle.
 
 15
-00:00:55,360 --> 00:00:59,119
- Cost curves, on the other hand, help firms decide at what point the cost of producing
+00:00:54,060 --> 00:00:56,700
+ Charge too much and you scare people away.
 
 16
-00:00:59,119 --> 00:01:03,520
- one more unit is too high to continue profitably.
+00:00:56,700 --> 00:01:00,299
+ Charge too little and you're leaving money on the table.
 
 17
-00:01:03,520 --> 00:01:07,940
- Together with supply curves, we can get a full picture of a firm's behavior and decision-making
+00:01:00,299 --> 00:01:05,339
+Transport services also have to account
+for variable factors such as fuel
+prices, passenger
 
 18
-00:01:07,940 --> 00:01:10,720
- processes in various market settings.
+00:01:05,339 --> 00:01:08,339
+ demand, and even weather disruptions.
 
 19
-00:01:10,720 --> 00:01:16,839
- So if a firm is a pizza place, are cost curves the ones telling them to stop adding so much
+00:01:08,339 --> 00:01:14,819
+The goal is to create a pricing model
+that's just right, ensuring
+sustainability and competitiveness.
 
 20
-00:01:16,839 --> 00:01:17,839
- pineapple?
+00:01:14,819 --> 00:01:19,900
+So you're saying it's a bit like
+finding a date on a Saturday night,
+complicated, full
 
 21
-00:01:17,839 --> 00:01:24,099
- Exactly, and even more so, they help decide if pineapple should be on the menu at all.
+00:01:19,900 --> 00:01:23,099
+ of surprises, and possibly expensive, huh?
 
 22
-00:01:24,099 --> 00:01:27,580
- Analysts use these models to make decisions like how much to produce and at what price
+00:01:23,099 --> 00:01:25,940
+ Exactly, but in a more organized way.
 
 23
-00:01:27,580 --> 00:01:33,139
- point to sell, which is crucial whether they're in a competitive market or a monopoly.
+00:01:25,940 --> 00:01:30,339
+When transportation companies get it
+right, they not only maximize profits,
+but also improve
 
 24
-00:01:33,139 --> 00:01:38,480
- Ultimately, this analysis helps firms maximize profit by identifying the most efficient level
+00:01:30,339 --> 00:01:34,620
+ service efficiency and customer satisfaction.
 
 25
-00:01:38,480 --> 00:01:40,300
- of production.
+00:01:34,620 --> 00:01:39,919
+Utilizing tools like cost analyses and
+economic modeling, yay, they can
+predict and respond
 
 26
-00:01:40,300 --> 00:01:45,220
- So in essence, those charts and graphs, they're basically the Google Maps of economics.
+00:01:39,919 --> 00:01:43,339
+ to changes in market conditions quickly.
+
+27
+00:01:43,339 --> 00:01:48,699
+It's about smart pricing strategies
+that create a win-win scenario, keeping
+businesses afloat
+
+28
+00:01:48,699 --> 00:01:54,620
+while keeping customers happy,
+hopefully avoiding the dreaded empty
+bus or overbooked flight
+
+29
+00:01:54,620 --> 00:01:55,120
+ scenario.
 
