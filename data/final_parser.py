@@ -53,6 +53,7 @@ def run():
 
         output_data["course_number"] = course_number
         output_data["course_name"] = course_name
+        output_data["prerequisites"] = []
 
         filename = os.path.splitext(os.path.basename(file_path))[0]
         output_path = os.path.join(CFG.OUTPUT_DIR, f"{filename}.json")

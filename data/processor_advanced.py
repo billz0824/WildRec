@@ -25,7 +25,7 @@ class CFG:
         "Table for 6. Estimate the average number of hours per week you spent on this course outside of class and lab time.-1. Estimate the average number of hours per week you spent on this course outside of class and lab time..": "Time Spent",
         "Table for What was your Interest in this subject before taking the course?-1. What was your interest in this subject before taking the course?.": "Prior Interest"
     }
-    LIMIT = None
+    LIMIT = 100
 
 if CFG.USE_GEMINI:
     genai.configure(api_key=CFG.GENAI_API_KEY)
