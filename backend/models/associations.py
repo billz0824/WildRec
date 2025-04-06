@@ -1,4 +1,4 @@
-from db import db
+from ..db import db
 
 saved_courses = db.Table(
     'saved_courses',

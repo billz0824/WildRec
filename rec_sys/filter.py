@@ -1,5 +1,5 @@
 import networkx as nx
-from generate_preferences import get_course
+from .generate_preferences import get_course
 
 
 

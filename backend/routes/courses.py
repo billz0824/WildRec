@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
-from models.course import Course
-from db import db
+from ..models.course import Course
+from ..db import db
 
 courses_bp = Blueprint('courses', __name__, url_prefix='/api/courses')
 

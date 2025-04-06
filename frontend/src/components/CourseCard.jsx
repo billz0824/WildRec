@@ -23,8 +23,31 @@ const CourseCard = ({ course, showSaveButton = false, onSave, isSaved = false, l
     }
   };
 
+  const roundToHalf = (val) => Math.round(val * 2) / 2;
+
   // Split requirements into an array
-  const requirementTags = course.requirements.split(', ');
+  const requirementTags = Array.isArray(course.requirements)
+  ? course.requirements
+  : [];
+
+  const { 
+    liked = 2.5, 
+    difficulty = 2.5, 
+    practicality = 2.5, 
+    collaborative = 2.5, 
+    rewarding = 2.5, 
+    instruction = 2.5 
+  } = course.radarData || {};
+
+  // Create a new object with each value rounded
+  const roundedRadarData = {
+    liked: roundToHalf(liked),
+    difficulty: roundToHalf(difficulty),
+    practicality: roundToHalf(practicality),
+    collaborative: roundToHalf(collaborative),
+    rewarding: roundToHalf(rewarding),
+    instruction: roundToHalf(instruction)
+  };
 
   const cardStyles = {
     grid: {
@@ -132,7 +155,7 @@ const CourseCard = ({ course, showSaveButton = false, onSave, isSaved = false, l
         {/* Radar Chart - Fixed Height */}
         <Box height="220px" display="flex" alignItems="center" justifyContent="center">
           <Box sx={{ transform: 'scale(0.9)', transformOrigin: 'center', width: '100%' }}>
-            <RadarChart data={course.radarData} />
+            <RadarChart data={roundedRadarData} />
           </Box>
         </Box>
 

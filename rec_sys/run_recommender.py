@@ -1,10 +1,10 @@
 import os
 from dotenv import load_dotenv
-from course_recommender import CourseRecommender
-from sample_data import COURSES, SAMPLE_USER
-from filter import filter_taken, filter_major
-from generate_preferences import generate_user_preference_summary, get_course
-from digraph import build_course_graph
+from .course_recommender import CourseRecommender
+from .sample_data import COURSES, SAMPLE_USER
+from .filter import filter_taken, filter_major
+from .generate_preferences import generate_user_preference_summary, get_course
+from .digraph import build_course_graph
 
 
 

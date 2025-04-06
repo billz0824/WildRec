@@ -1,6 +1,6 @@
 from flask import Flask
-from config import Config
-from db import db, migrate
+from backend.config import Config
+from .db import db, migrate
 from flask_cors import CORS
 
 
@@ -13,8 +13,8 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
-    from models import User, Course, Review, Bit  # ensure models are registered
-    from routes import register_routes
+    from .models import User, Course, Review, Bit  # ensure models are registered
+    from .routes import register_routes
     register_routes(app)
 
     return app

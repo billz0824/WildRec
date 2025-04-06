@@ -1,8 +1,8 @@
 from flask import Blueprint, request, jsonify
-from models.course import Course
-from models.bit import Bit
-from models.user import User
-from app import db
+from ..models.course import Course
+from ..models.bit import Bit
+from ..models.user import User
+from ..app import db
 
 bits_bp = Blueprint('bits', __name__, url_prefix='/api/bits')
 
@@ -65,3 +65,11 @@ def add_bits():
         "message": msg,
         "bit_id": bit.id
     })
+
+
+def get_bits_for_course(course_id):
+    course = Course.query.get_or_404(course_id)
+
+    bits = Bit.query.filter_by(course_id=course.id).all()
+
+    return bits

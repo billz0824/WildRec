@@ -1,6 +1,6 @@
-from db import db
-from models.associations import saved_courses
-from models.course import Course 
+from ..db import db
+from ..models.associations import saved_courses
+from ..models.course import Course 
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)

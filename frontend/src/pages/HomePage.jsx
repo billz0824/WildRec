@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CourseCard from '../components/CourseCard';
 import { TextField, Box, Typography, Grid } from '@mui/material';
+import { useUser } from '../context/UserContext';
 
 // Sample course data
 const sampleCourses = [
@@ -122,25 +123,27 @@ const sampleCourses = [
 ];
 
 const HomePage = () => {
+  
   const [searchQuery, setSearchQuery] = useState('');
-  const [courses, setCourses] = useState(sampleCourses);  // Initialize with sample data
-
-  // Comment out the fetch for now since we're using sample data
-  /*useEffect(() => {
-    const fetchCourses = async () => {
+  // const [courses, setCourses] = useState(sampleCourses);  // Initialize with sample data
+  const { userId } = useUser();
+  const [courses, setCourses] = useState([]);
+  
+  useEffect(() => {
+    console.log('HomePage: userId is', userId);
+    const fetchRecommendedCourses = async () => {
       try {
-        const response = await fetch('/api/courses/available');
-        if (response.ok) {
-          const data = await response.json();
-          setCourses(data);
-        }
-      } catch (error) {
-        console.error('Error fetching courses:', error);
+        const res = await fetch(`http://127.0.0.1:5000/api/users/get_recommended_courses/${userId}`);
+        const data = await res.json();
+        setCourses(data.courses);
+      } catch (err) {
+        console.error("Error fetching recommended courses:", err);
       }
     };
-
-    fetchCourses();
-  }, []);*/
+  
+    if (userId) fetchRecommendedCourses();
+  }, [userId]);
+  
 
   const filteredCourses = courses.filter(course => {
     const searchLower = searchQuery.toLowerCase();
@@ -152,21 +155,32 @@ const HomePage = () => {
   });
 
   const handleSaveCourse = async (course) => {
+    if (!userId) {
+      console.error('Cannot save course without a userId');
+      return;
+    }
     try {
-      const response = await fetch('/api/courses/save', {
+      const response = await fetch(`http://localhost:5000/api/users/${userId}/save_course`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(course),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ course_id: course.id }),
       });
-
       if (!response.ok) {
         throw new Error('Failed to save course');
       }
 
-      // Remove the course from the current list
-      setCourses(prev => prev.filter(c => c.id !== course.id));
+      // 1) Update the local `courses` state so that this course is flagged as saved
+      setCourses((prevCourses) => {
+        // Mark this course as saved
+        let updatedCourses = prevCourses.map((c) => {
+          if (c.id === course.id) {
+            return { ...c, isSaved: true };
+          }
+          return c;
+        });
+
+        return updatedCourses;
+      });
     } catch (error) {
       console.error('Error saving course:', error);
     }
@@ -228,9 +242,12 @@ const HomePage = () => {
           {filteredCourses.map((course) => (
             <Grid item xs={12} md={4} key={course.id} sx={{ width: '30%', padding: '8px' }}>
               <CourseCard 
-                course={course} 
-                showSaveButton={true}
+                key={course.id}
+                course={course}
+                showSaveButton
                 onSave={handleSaveCourse}
+                // pass down the flag so CourseCard can highlight the icon
+                isSaved={course.isSaved ?? false}
               />
             </Grid>
           ))}

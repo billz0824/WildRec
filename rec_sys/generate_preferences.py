@@ -1,6 +1,6 @@
 import time
 import google.generativeai as genai
-from info import API_KEY
+from .info import API_KEY
 
 
 

@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
-const UserContext = createContext();
+const UserContext = createContext(null);
 
 // Available subjects for selection
 const AVAILABLE_SUBJECTS = [
@@ -51,28 +51,43 @@ const AVAILABLE_MAJORS = [
 ];
 
 export const UserProvider = ({ children }) => {
+  const [userId, setUserId] = useState(null); 
   const [userPreferences, setUserPreferences] = useState({
     major: '',
     interests: [],
-    courseQuote: '', // Description of what the student is looking for
-    topCourses: ['', '', ''], // Top 3 courses taken in the past
-    otherCourses: [], // Optional past courses
+    courseQuote: '', // Goal description
+    topCourses: ['', '', ''],
+    otherCourses: [],
   });
 
   const updatePreferences = (updates) => {
     setUserPreferences((prev) => ({ ...prev, ...updates }));
   };
 
-  const getAvailableSubjects = () => {
-    return AVAILABLE_SUBJECTS;
-  };
+  const getAvailableSubjects = () => AVAILABLE_SUBJECTS;
+  const getAvailableMajors = () => AVAILABLE_MAJORS;
 
-  const getAvailableMajors = () => {
-    return AVAILABLE_MAJORS;
-  };
+  // On mount, load userId from localStorage
+  useEffect(() => {
+    const storedUserId = localStorage.getItem('userId');
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
+  }, []);
+
+  // Whenever userId changes, store or clear it in localStorage
+  useEffect(() => {
+    if (userId) {
+      localStorage.setItem('userId', userId);
+    } else {
+      localStorage.removeItem('userId');
+    }
+  }, [userId]);
 
   return (
     <UserContext.Provider value={{ 
+      userId,
+      setUserId,
       userPreferences, 
       updatePreferences,
       getAvailableSubjects,
@@ -82,5 +97,6 @@ export const UserProvider = ({ children }) => {
     </UserContext.Provider>
   );
 };
+
 
 export const useUser = () => useContext(UserContext);
