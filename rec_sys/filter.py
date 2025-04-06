@@ -38,7 +38,7 @@ def filter_taken(user, courses, course_graph):
 def filter_major(major, courses):
     allowed = []
     for course in courses:
-        course_major = course["course_number"].split(" ")[0].upper()
+        course_major = course["number"].split(" ")[0].upper()
         if course_major == major:
             allowed.append(course)
     return allowed

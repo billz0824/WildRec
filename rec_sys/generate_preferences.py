@@ -18,7 +18,7 @@ genai.configure(api_key=CFG.GENAI_API_KEY)
 
 def get_course(number, courses):
     for i in courses:
-        if i["course_number"] == number:
+        if i["number"] == number:
             return i
 
 ###############################################################
