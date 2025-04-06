@@ -1,74 +1,48 @@
 {
   "course_name": "Econ 310-1",
-  "generation_timestamp": "2025-04-05T16:15:41.953920",
-  "num_topics": 5,
+  "generation_timestamp": "2025-04-05T23:10:06.568210",
+  "num_topics": 3,
   "topics": [
     {
       "topic_id": 1,
-      "title": "Supply and Demand Analysis",
-      "description": "This topic explores the foundational concepts of supply and demand curves, examining how these curves facilitate equilibrium and efficient resource allocation in markets. Students will learn to analyze the impacts of governmental interventions, such as taxes and subsidies, on market outcomes."
+      "title": "Understanding Market Equilibrium",
+      "description": "Explore how supply and demand curves interact to reach equilibrium and how government interventions can affect competitive markets."
     },
     {
       "topic_id": 2,
-      "title": "Consumer Theory and Demand",
-      "description": "Focusing on consumer behavior, this section delves into the derivation of demand curves and evaluates how shifts in price affect consumer welfare. The analysis involves understanding how consumers optimize utility given budget constraints and market conditions."
+      "title": "Deriving and Analyzing Demand Curves",
+      "description": "Learn the process of deriving demand curves and evaluating changes in consumer welfare as a result of price alterations."
     },
     {
       "topic_id": 3,
-      "title": "Producer Theory and Cost Analysis",
-      "description": "This topic covers the intricacies of producer behavior by exploring production functions and cost structures. Students will analyze how firms optimize production processes and make decisions about output levels, with a focus on cost minimization and profit maximization."
-    },
-    {
-      "topic_id": 4,
-      "title": "Market Structures and Competition",
-      "description": "Students will investigate various market structures, including perfect competition, monopoly, and monopsony. This section highlights the differences in market outcomes and firm behavior under each structure, discussing implications for efficiency and consumer welfare."
-    },
-    {
-      "topic_id": 5,
-      "title": "Equilibrium Analysis and Comparative Statics",
-      "description": "This topic introduces equilibrium analysis in market settings and examines how markets adjust to changes in external conditions through comparative statics. Students will learn methods to predict and quantify changes in market equilibrium resulting from shifts in demand or supply."
+      "title": "Production Functions and Firm Behavior",
+      "description": "Discover how production functions, cost curves, and supply curves define the behavior and decisions of firms in various market settings."
     }
   ],
   "podcasts": [
     {
       "topic_id": 1,
-      "topic_title": "Supply and Demand Analysis",
-      "combined_audio_path": "output/audio/podcast_1_supply_and_demand_analysis.mp3",
-      "total_duration_ms": 90775,
-      "total_duration_formatted": "90.78 seconds",
-      "processing_time_s": 5.484095
+      "topic_title": "Understanding Market Equilibrium",
+      "combined_audio_path": "output/audio/podcast_1_understanding_market_equilibrium.mp3",
+      "total_duration_ms": 95503,
+      "total_duration_formatted": "95.50 seconds",
+      "processing_time_s": 5.389639
     },
     {
       "topic_id": 2,
-      "topic_title": "Consumer Theory and Demand",
-      "combined_audio_path": "output/audio/podcast_2_consumer_theory_and_demand.mp3",
-      "total_duration_ms": 102895,
-      "total_duration_formatted": "102.89 seconds",
-      "processing_time_s": 5.418823
+      "topic_title": "Deriving and Analyzing Demand Curves",
+      "combined_audio_path": "output/audio/podcast_2_deriving_and_analyzing_demand_curves.mp3",
+      "total_duration_ms": 83043,
+      "total_duration_formatted": "83.04 seconds",
+      "processing_time_s": 4.768818
     },
     {
       "topic_id": 3,
-      "topic_title": "Producer Theory and Cost Analysis",
-      "combined_audio_path": "output/audio/podcast_3_producer_theory_and_cost_analysis.mp3",
-      "total_duration_ms": 101485,
-      "total_duration_formatted": "101.48 seconds",
-      "processing_time_s": 5.805666
-    },
-    {
-      "topic_id": 4,
-      "topic_title": "Market Structures and Competition",
-      "combined_audio_path": "output/audio/podcast_4_market_structures_and_competition.mp3",
-      "total_duration_ms": 100284,
-      "total_duration_formatted": "100.28 seconds",
-      "processing_time_s": 6.164455
-    },
-    {
-      "topic_id": 5,
-      "topic_title": "Equilibrium Analysis and Comparative Statics",
-      "combined_audio_path": "output/audio/podcast_5_equilibrium_analysis_and_comparative_statics.mp3",
-      "total_duration_ms": 81763,
-      "total_duration_formatted": "81.76 seconds",
-      "processing_time_s": 4.606851
+      "topic_title": "Production Functions and Firm Behavior",
+      "combined_audio_path": "output/audio/podcast_3_production_functions_and_firm_behavior.mp3",
+      "total_duration_ms": 105455,
+      "total_duration_formatted": "105.45 seconds",
+      "processing_time_s": 5.519787
     }
   ]
 }

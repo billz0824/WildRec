@@ -1,0 +1,94 @@
+1
+00:00:00,000 --> 00:00:05,119
+Alright, folks, ever wonder why your
+favorite cereal costs more than your
+monthly streaming service subscription?
+Welcome to the wonderful world of demand
+curves, where mysterious forces of economics
+determine if you can actually afford
+to eat breakfast. I'm your comedic guide
+through this economic jungle. Let's dive
+into how we derive these mystical curves
+and what happens when prices play hopscotch.
+
+2
+00:00:05,119 --> 00:00:11,199
+Thanks for having me. In microeconomics,
+a demand curve is essentially a graph
+that depicts how much of a product consumers
+are willing to buy at different price
+levels. To derive them, we use consumer
+theory, which involves analyzing preferences
+and constraints. When prices change,
+we assess consumer welfare by determining
+how these changes affect their utility.
+It's a balancing act of what consumers
+want versus what they're willing to pay.
+
+3
+00:00:11,199 --> 00:00:16,879
+So, if prices are doing the cha-cha,
+does that mean consumer happiness is
+dancing too?
+
+4
+00:00:16,879 --> 00:00:22,719
+In a way, yes! When prices drop, typically,
+consumer welfare or happiness increases
+because they can buy more with the same
+budget—think more Netflix, less chill
+on spending. Conversely, when prices
+rise, consumers may sacrifice other purchases
+to maintain their usual consumption level.
+Understanding these dynamics is crucial
+in microeconomics for evaluating market
+efficiency and consumer satisfaction.
+
+5
+00:00:22,719 --> 00:00:28,399
+ and what happens when prices play hopscotch. Thanks for having me. In microeconomics,
+
+6
+00:00:28,399 --> 00:00:32,639
+ a demand curve is essentially a graph that depicts how much of a product consumers are
+
+7
+00:00:32,639 --> 00:00:37,680
+ willing to buy at different price levels. To derive them, we use consumer theory,
+
+8
+00:00:37,680 --> 00:00:42,639
+ which involves analyzing preferences and constraints. When prices change,
+
+9
+00:00:42,639 --> 00:00:46,959
+ we assess consumer welfare by determining how these changes affect their utility.
+
+10
+00:00:47,919 --> 00:00:52,000
+ It's a balancing act of what consumers want versus what they're willing to pay.
+
+11
+00:00:52,000 --> 00:00:58,080
+ So if prices are doing the cha-cha, does that mean consumer happiness is dancing too?
+
+12
+00:00:58,080 --> 00:01:03,279
+ In a way, yes. When prices drop, typically consumer welfare or happiness increases because
+
+13
+00:01:03,279 --> 00:01:07,919
+ they can buy more with the same budget, think more Netflix, less chill on spending.
+
+14
+00:01:08,879 --> 00:01:13,919
+ Conversely, when prices rise, consumers may sacrifice other purchases to maintain their
+
+15
+00:01:13,919 --> 00:01:19,599
+ usual consumption level. Understanding these dynamics is crucial in microeconomics for
+
+16
+00:01:19,599 --> 00:01:22,720
+ evaluating market efficiency and consumer satisfaction.
+
